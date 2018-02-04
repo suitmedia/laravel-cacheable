@@ -7,21 +7,21 @@ use BadMethodCallException;
 class MethodNotFoundException extends BadMethodCallException
 {
     /**
-     * Method name
+     * Method name.
      *
      * @var string
      */
     protected $method;
 
     /**
-     * Repository class name
+     * Repository class name.
      *
      * @var string
      */
     protected $repository;
 
     /**
-     * Get method name
+     * Get method name.
      *
      * @return string
      */
@@ -31,7 +31,7 @@ class MethodNotFoundException extends BadMethodCallException
     }
 
     /**
-     * Get the repository name
+     * Get the repository name.
      *
      * @return string
      */
@@ -42,7 +42,7 @@ class MethodNotFoundException extends BadMethodCallException
 
     /**
      * Set Repository and method name then generate the
-     * exception message
+     * exception message.
      *
      * @param string $repository
      * @param string $method

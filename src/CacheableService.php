@@ -11,28 +11,28 @@ use Suitmedia\Cacheable\Contracts\CacheableRepository;
 class CacheableService
 {
     /**
-     * Cache manager object
+     * Cache manager object.
      *
      * @var \Illuminate\Cache\CacheManager
      */
     protected $cache;
 
     /**
-     * Cacheable configurations
+     * Cacheable configurations.
      *
      * @var array
      */
     protected $configurations;
 
     /**
-     * Runtime cache
+     * Runtime cache.
      *
      * @var \Illuminate\Cache\ArrayStore
      */
     protected $runtimeCache;
 
     /**
-     * Class constructor
+     * Class constructor.
      *
      * @param \Illuminate\Cache\CacheManager $cache
      * @param \Illuminate\Cache\ArrayStore   $runtimeCache
@@ -48,7 +48,8 @@ class CacheableService
      * Build CacheableDecorator based on the given class name
      * or repository object.
      *
-     * @param  mixed $repository
+     * @param mixed $repository
+     *
      * @return \Suitmedia\Cacheable\CacheableDecorator
      */
     public function build($repository)
@@ -61,9 +62,10 @@ class CacheableService
     }
 
     /**
-     * Flush cache
+     * Flush cache.
      *
      * @param mixed $tags
+     *
      * @return void
      */
     public function flush($tags = null)
@@ -73,9 +75,10 @@ class CacheableService
     }
 
     /**
-     * Get configuration value
+     * Get configuration value.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function getConfiguration($key)
@@ -84,10 +87,11 @@ class CacheableService
     }
 
     /**
-     * Get runtime cached object
+     * Get runtime cached object.
      *
-     * @param  mixed  $tags
-     * @param  string $key
+     * @param mixed  $tags
+     * @param string $key
+     *
      * @return mixed
      */
     protected function getRuntimeCache($tags, $key)
@@ -96,12 +100,13 @@ class CacheableService
     }
 
     /**
-     * Retrieve cached items
+     * Retrieve cached items.
      *
-     * @param  mixed    $tags
-     * @param  string   $key
-     * @param  integer  $duration
-     * @param  Closure  $callable
+     * @param mixed   $tags
+     * @param string  $key
+     * @param int     $duration
+     * @param Closure $callable
+     *
      * @return mixed
      */
     public function retrieve($tags, $key, $duration, Closure $callable)
@@ -122,7 +127,7 @@ class CacheableService
     }
 
     /**
-     * Set runtime cache object
+     * Set runtime cache object.
      *
      * @param mixed  $tags
      * @param string $key
@@ -134,10 +139,11 @@ class CacheableService
     }
 
     /**
-     * Get tagged cache object
+     * Get tagged cache object.
      *
-     * @param  TaggableStore $cache
-     * @param  mixed         $tags
+     * @param TaggableStore $cache
+     * @param mixed         $tags
+     *
      * @return mixed
      */
     protected function taggedCache(TaggableStore $cache, $tags)
@@ -146,9 +152,10 @@ class CacheableService
     }
 
     /**
-     * Wrap the given CacheableRepository with a new CacheableDecorator
+     * Wrap the given CacheableRepository with a new CacheableDecorator.
      *
-     * @param  \Suitmedia\Cacheable\Contracts\CacheableRepository $repository
+     * @param \Suitmedia\Cacheable\Contracts\CacheableRepository $repository
+     *
      * @return \Suitmedia\Cacheable\CacheableDecorator
      */
     protected function wrapWithDecorator(CacheableRepository $repository)
