@@ -9,23 +9,23 @@ use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
 class CacheableDecorator
 {
     /**
-     * Cacheable Repository
+     * Cacheable Repository.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableRepository
      */
     private $repository;
 
     /**
-     * Cacheable service object
+     * Cacheable service object.
      *
      * @var \Suitmedia\Cacheable\CacheableService
      */
     private $service;
 
     /**
-     * Class constructor
+     * Class constructor.
      *
-     * @param \Suitmedia\Cacheable\CacheableService $service
+     * @param \Suitmedia\Cacheable\CacheableService              $service
      * @param \Suitmedia\Cacheable\Contracts\CacheableRepository $repository
      */
     public function __construct(CacheableService $service, CacheableRepository $repository)
@@ -35,19 +35,20 @@ class CacheableDecorator
     }
 
     /**
-     * Generate custom cache tags
+     * Generate custom cache tags.
      *
-     * @param  array $tags
-     * @param  Model $object
+     * @param array $tags
+     * @param Model $object
+     *
      * @return array
      */
     private function generateCustomTags($tags, Model $object)
     {
         $class = last(explode('\\', get_class($object)));
-        $customTags = [$class . ':' . $object->getKey() => true];
+        $customTags = [$class.':'.$object->getKey() => true];
 
         foreach ($tags as $tag) {
-            $key = $tag . ':' . $class . ':' . $object->getKey();
+            $key = $tag.':'.$class.':'.$object->getKey();
             $customTags[$key] = true;
         }
 
@@ -55,9 +56,10 @@ class CacheableDecorator
     }
 
     /**
-     * Generate cache tags
+     * Generate cache tags.
      *
-     * @param  mixed $args
+     * @param mixed $args
+     *
      * @return array
      */
     private function generateTags($args)
@@ -77,10 +79,11 @@ class CacheableDecorator
     }
 
     /**
-     * Finds whether the metod is cacheable
+     * Finds whether the metod is cacheable.
      *
-     * @param  string $method
-     * @return boolean
+     * @param string $method
+     *
+     * @return bool
      */
     private function methodIsCacheable($method)
     {
@@ -88,10 +91,11 @@ class CacheableDecorator
     }
 
     /**
-     * Dynamically call methods from repository
+     * Dynamically call methods from repository.
      *
-     * @param  string $method
-     * @param  mixed $args
+     * @param string $method
+     * @param mixed  $args
+     *
      * @return mixed
      */
     public function __call($method, $args)
@@ -99,7 +103,7 @@ class CacheableDecorator
         $repository = $this->repository;
 
         if (!method_exists($repository, $method)) {
-            throw (new MethodNotFoundException)->setRepositoryMethod(
+            throw (new MethodNotFoundException())->setRepositoryMethod(
                 get_class($repository),
                 $method
             );

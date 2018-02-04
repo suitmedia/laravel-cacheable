@@ -8,7 +8,7 @@ interface CacheableRepository
      * Return the cache duration value
      * which would be used by the repository.
      *
-     * @return integer
+     * @return int
      */
     public function cacheDuration();
 
@@ -21,10 +21,11 @@ interface CacheableRepository
     public function cacheExcept();
 
     /**
-     * Generate cache key
+     * Generate cache key.
      *
-     * @param  string $method
-     * @param  mixed $args
+     * @param string $method
+     * @param mixed  $args
+     *
      * @return string
      */
     public function cacheKey($method, $args);
@@ -39,7 +40,7 @@ interface CacheableRepository
 
     /**
      * Return the primary model object which would
-     * be used by the repository
+     * be used by the repository.
      *
      * @return \Suitmedia\Contracts\Cacheable\CacheableModel
      */
