@@ -13,7 +13,7 @@ class User extends Model implements CacheableModel
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
     ];
 
     public function cacheTags()

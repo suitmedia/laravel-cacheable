@@ -8,7 +8,7 @@ interface CacheableModel
      * Return the cache duration value
      * for this model.
      *
-     * @return integer
+     * @return int
      */
     public function cacheDuration();
 

@@ -9,23 +9,24 @@ use Suitmedia\Cacheable\Tests\Models\Video;
 abstract class TestCase extends BaseTest
 {
     /**
-     * Base user
+     * Base user.
      *
      * @var \Suitmedia\Cacheable\Tests\Models\User
      */
     protected $user;
 
     /**
-     * Another user
+     * Another user.
      *
      * @var \Suitmedia\Cacheable\Tests\Models\User
      */
     protected $otherUser;
 
     /**
-     * Define environment setup
+     * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
+     *
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -33,30 +34,32 @@ abstract class TestCase extends BaseTest
         $app['config']->set('cache.default', 'array');
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
+            'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix' => '',
+            'prefix'   => '',
         ]);
     }
 
     /**
-     * Define package aliases
+     * Define package aliases.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
+     *
      * @return array
      */
     protected function getPackageAliases($app)
     {
         return [
-            'Cache' => \Illuminate\Support\Facades\Cache::class,
+            'Cache'     => \Illuminate\Support\Facades\Cache::class,
             'Cacheable' => \Suitmedia\Cacheable\Facade::class,
         ];
     }
 
     /**
-     * Define package service provider
+     * Define package service provider.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
+     *
      * @return array
      */
     protected function getPackageProviders($app)
@@ -69,11 +72,12 @@ abstract class TestCase extends BaseTest
     }
 
     /**
-     * Invoke protected / private method of the given object
+     * Invoke protected / private method of the given object.
      *
-     * @param  Object      $object
-     * @param  String      $methodName
-     * @param  Array|array $parameters
+     * @param object      $object
+     * @param string      $methodName
+     * @param array|array $parameters
+     *
      * @return mixed
      */
     protected function invokeMethod($object, $methodName, array $parameters = [])
@@ -89,8 +93,9 @@ abstract class TestCase extends BaseTest
      * Prepare database requirements
      * to perform any tests.
      *
-     * @param  string $migrationPath
-     * @param  string $factoryPath
+     * @param string $migrationPath
+     * @param string $factoryPath
+     *
      * @return void
      */
     protected function prepareDatabase($migrationPath, $factoryPath = null)
@@ -109,9 +114,10 @@ abstract class TestCase extends BaseTest
     }
 
     /**
-     * Prepare to get an exception in a test
+     * Prepare to get an exception in a test.
      *
-     * @param  mixed $exception
+     * @param mixed $exception
+     *
      * @return void
      */
     protected function prepareException($exception)
@@ -124,15 +130,15 @@ abstract class TestCase extends BaseTest
     }
 
     /**
-     * Setup the test environment
+     * Setup the test environment.
      */
     public function setUp()
     {
         parent::setUp();
 
         $this->prepareDatabase(
-            realpath(__DIR__ . '/database/migrations'),
-            realpath(__DIR__ . '/database/factories')
+            realpath(__DIR__.'/database/migrations'),
+            realpath(__DIR__.'/database/factories')
         );
 
         $this->user = factory(User::class)->create();

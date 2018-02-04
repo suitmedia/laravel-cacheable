@@ -7,14 +7,14 @@ use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
 class MethodNotFoundExceptionTests extends TestCase
 {
     /**
-     * Method not found exception
+     * Method not found exception.
      *
      * @var \Suitmedia\Cacheable\Exceptions\MethodNotFoundException
      */
     protected $exception;
 
     /**
-     * Setup test requirements
+     * Setup test requirements.
      */
     public function setUp()
     {

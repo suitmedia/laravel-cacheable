@@ -8,7 +8,7 @@ trait CacheableTrait
      * Get the cache duration value from
      * the model object.
      *
-     * @return integer
+     * @return int
      */
     public function cacheDuration()
     {
@@ -27,10 +27,11 @@ trait CacheableTrait
     }
 
     /**
-     * Generate cache key
+     * Generate cache key.
      *
-     * @param  string $method
-     * @param  mixed $args
+     * @param string $method
+     * @param mixed  $args
+     *
      * @return string
      */
     public function cacheKey($method, $args)
