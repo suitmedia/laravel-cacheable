@@ -32,7 +32,7 @@ class ServiceTests extends TestCase
         parent::setUp();
 
         $this->runtimeCache = new ArrayStore;
-        $this->service = new CacheableService(cache(), $this->runtimeCache);
+        $this->service = new CacheableService(app('cache'), $this->runtimeCache);
     }
 
     /** @test */

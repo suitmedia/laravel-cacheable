@@ -30,7 +30,7 @@ class ServiceProvider extends Provider
         $this->mergeConfigFrom(realpath(__DIR__ . '/../config/cacheable.php'), 'cacheable');
 
         $this->app->singleton(CacheableService::class, function () {
-            return new CacheableService(cache(), new ArrayStore);
+            return new CacheableService(app('cache'), new ArrayStore);
         });
     }
 }
