@@ -11,7 +11,7 @@
     stopOnFailure="true"
     syntaxCheck="false">
     <testsuites>
-        <testsuite name="SuitCMS Test Suite">
+        <testsuite name="Cacheable Test Suite">
             <directory suffix="Tests.php">./tests/</directory>
         </testsuite>
     </testsuites>
