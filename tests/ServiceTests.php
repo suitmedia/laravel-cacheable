@@ -3,35 +3,36 @@
 namespace Suitmedia\Cacheable\Tests;
 
 use Illuminate\Cache\ArrayStore;
+use Suitmedia\Cacheable\CacheableDecorator;
+use Suitmedia\Cacheable\CacheableService;
 use Suitmedia\Cacheable\Tests\Models\User;
 use Suitmedia\Cacheable\Tests\Models\Video;
 use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
-use Suitmedia\Cacheable\CacheableDecorator;
-use Suitmedia\Cacheable\CacheableService;
 
 class ServiceTests extends TestCase
 {
     /**
-     * Runtime cache object
+     * Runtime cache object.
      *
      * @var \Illuminate\Cache\ArrayStore
      */
     protected $runtimeCache;
 
     /**
-     * Service object
+     * Service object.
+     *
      * @var \Suitmedia\Cacheable\CacheableService
      */
     protected $service;
 
     /**
-     * Setup test requirements
+     * Setup test requirements.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->runtimeCache = new ArrayStore;
+        $this->runtimeCache = new ArrayStore();
         $this->service = new CacheableService(cache(), $this->runtimeCache);
     }
 
@@ -46,7 +47,7 @@ class ServiceTests extends TestCase
     /** @test */
     public function build_decorator_object_by_repository_object()
     {
-        $repository = new VideoRepository(new Video);
+        $repository = new VideoRepository(new Video());
         $decorator = $this->service->build($repository);
 
         $this->assertInstanceOf(CacheableDecorator::class, $decorator);
@@ -113,7 +114,7 @@ class ServiceTests extends TestCase
     {
         $counter = 0;
         $closure = function () use (&$counter) {
-            return 'Data ' . ++$counter;
+            return 'Data '.++$counter;
         };
 
         $this->service->retrieve('Video', 'first', 120, $closure);
@@ -127,7 +128,7 @@ class ServiceTests extends TestCase
     {
         $counter = 0;
         $closure = function () use (&$counter) {
-            return 'Data ' . ++$counter;
+            return 'Data '.++$counter;
         };
 
         $this->service->retrieve('Video', 'first', 120, $closure);
@@ -144,7 +145,7 @@ class ServiceTests extends TestCase
     {
         $counter = 0;
         $closure = function () use (&$counter) {
-            return 'Data ' . ++$counter;
+            return 'Data '.++$counter;
         };
 
         $this->service->retrieve('Video', 'first', 0, $closure);
@@ -159,7 +160,7 @@ class ServiceTests extends TestCase
     /** @test */
     public function wrap_repository_with_decorator_object()
     {
-        $repository = new VideoRepository(new Video);
+        $repository = new VideoRepository(new Video());
         $decorator = $this->invokeMethod(
             $this->service,
             'wrapWithDecorator',
@@ -174,7 +175,7 @@ class ServiceTests extends TestCase
     {
         $counter = 0;
         $closure = function () use (&$counter) {
-            return 'Data ' . ++$counter;
+            return 'Data '.++$counter;
         };
 
         $this->service->retrieve('Video', 'first', 120, $closure);
@@ -191,7 +192,7 @@ class ServiceTests extends TestCase
     {
         $counter = 0;
         $closure = function () use (&$counter) {
-            return 'Data ' . ++$counter;
+            return 'Data '.++$counter;
         };
 
         $this->service->retrieve('Video', 'first', 120, $closure);

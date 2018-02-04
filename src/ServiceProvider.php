@@ -3,7 +3,6 @@
 namespace Suitmedia\Cacheable;
 
 use Illuminate\Cache\ArrayStore;
-use Illuminate\Cache\CacheManager;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class ServiceProvider extends Provider
@@ -16,7 +15,7 @@ class ServiceProvider extends Provider
     public function boot()
     {
         $this->publishes([
-            realpath(__DIR__ . '/../config/cacheable.php') => config_path('cacheable.php'),
+            realpath(__DIR__.'/../config/cacheable.php') => config_path('cacheable.php'),
         ], 'config');
     }
 
@@ -27,10 +26,10 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->mergeConfigFrom(realpath(__DIR__ . '/../config/cacheable.php'), 'cacheable');
+        $this->mergeConfigFrom(realpath(__DIR__.'/../config/cacheable.php'), 'cacheable');
 
         $this->app->singleton(CacheableService::class, function () {
-            return new CacheableService(cache(), new ArrayStore);
+            return new CacheableService(cache(), new ArrayStore());
         });
     }
 }

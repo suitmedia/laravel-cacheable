@@ -8,28 +8,28 @@ use Suitmedia\Cacheable\Tests\Models\Video;
 class ModelTraitTests extends TestCase
 {
     /**
-     * User model object
+     * User model object.
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $userModel;
 
     /**
-     * Video model object
+     * Video model object.
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $videoModel;
 
     /**
-     * Setup test requirements
+     * Setup test requirements.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->userModel = new User;
-        $this->videoModel = new Video;
+        $this->userModel = new User();
+        $this->videoModel = new Video();
     }
 
     /** @test */

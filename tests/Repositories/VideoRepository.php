@@ -8,10 +8,10 @@ use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
 class VideoRepository extends EloquentRepository
 {
     use CacheableTrait;
-    
+
     public function __construct(Video $model)
     {
-        parent::__construct($model);    
+        parent::__construct($model);
     }
 
     public function getAllVideos()

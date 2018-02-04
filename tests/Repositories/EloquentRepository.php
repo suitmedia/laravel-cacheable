@@ -11,14 +11,14 @@ abstract class EloquentRepository implements CacheableRepository
     use CacheableTrait;
 
     /**
-     * Cacheable model object
+     * Cacheable model object.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableModel
      */
     private $model;
 
     /**
-     * EloquentRepository class constructor
+     * EloquentRepository class constructor.
      *
      * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      */
@@ -29,7 +29,7 @@ abstract class EloquentRepository implements CacheableRepository
 
     /**
      * Return the model object which would
-     * be used by the repository
+     * be used by the repository.
      *
      * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */

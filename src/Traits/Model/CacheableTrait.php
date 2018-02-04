@@ -21,7 +21,7 @@ trait CacheableTrait
      * Return the cache duration value
      * for this model.
      *
-     * @return integer
+     * @return int
      */
     public function cacheDuration()
     {
@@ -37,6 +37,7 @@ trait CacheableTrait
     public function cacheTags()
     {
         $className = get_class($this);
+
         return last(explode('\\', $className));
     }
 }

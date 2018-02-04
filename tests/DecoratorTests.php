@@ -2,50 +2,50 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
-use Suitmedia\Cacheable\Tests\Models\Video;
-use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
 use Suitmedia\Cacheable\CacheableDecorator;
 use Suitmedia\Cacheable\CacheableService;
 use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
+use Suitmedia\Cacheable\Tests\Models\Video;
+use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
 
 class DecoratorTests extends TestCase
 {
     /**
-     * Cacheable Decorator
+     * Cacheable Decorator.
      *
      * @var \Suitmedia\Cacheable\CacheableDecorator
      */
     protected $decorator;
 
     /**
-     * Mocked repository
+     * Mocked repository.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableRepository
      */
     protected $mockedRepository;
 
     /**
-     * Cacheable Eloquent Model
+     * Cacheable Eloquent Model.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableModel
      */
     protected $model;
 
     /**
-     * Cacheable Repository
+     * Cacheable Repository.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableRepository
      */
     protected $repository;
 
     /**
-     * Setup test requirements
+     * Setup test requirements.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->model = new Video;
+        $this->model = new Video();
         $this->repository = new VideoRepository($this->model);
         $this->decorator = new CacheableDecorator(app(CacheableService::class), $this->repository);
 
@@ -62,9 +62,9 @@ class DecoratorTests extends TestCase
         );
 
         $expected = [
-            'User:1' => true,
-            'Video:User:1' => true,
-            'Article:User:1' => true
+            'User:1'         => true,
+            'Video:User:1'   => true,
+            'Article:User:1' => true,
         ];
 
         $this->assertEquals($expected, $tags);
@@ -98,7 +98,7 @@ class DecoratorTests extends TestCase
             'VideoAlbum:User:1',
             'User:2',
             'Video:User:2',
-            'VideoAlbum:User:2'
+            'VideoAlbum:User:2',
         ];
 
         $this->assertEquals($expected, $actual);
@@ -146,8 +146,8 @@ class DecoratorTests extends TestCase
 
         $decorator = new CacheableDecorator(app(CacheableService::class), $this->mockedRepository);
 
-        $decorator->update(new Video);
-        $result = $decorator->update(new Video);
+        $decorator->update(new Video());
+        $result = $decorator->update(new Video());
 
         $this->assertEquals('Video Updated', $result);
     }

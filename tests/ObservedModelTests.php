@@ -7,20 +7,20 @@ use Suitmedia\Cacheable\Tests\Models\Video;
 class ObservedModelTests extends TestCase
 {
     /**
-     * Model object
+     * Model object.
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model;
 
     /**
-     * Setup test requirements
+     * Setup test requirements.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->model = new Video;
+        $this->model = new Video();
 
         \Cache::tags('Video')->put('foo', 'bar', 120);
     }

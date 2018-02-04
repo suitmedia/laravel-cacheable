@@ -8,10 +8,10 @@ use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
 class UserRepository extends EloquentRepository
 {
     use CacheableTrait;
-    
+
     public function __construct(User $model)
     {
-        parent::__construct($model);    
+        parent::__construct($model);
     }
 
     public function getAllUsers()

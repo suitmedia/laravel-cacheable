@@ -8,14 +8,14 @@ use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
 class RepositoryTraitTests extends TestCase
 {
     /**
-     * User Repository Object
+     * User Repository Object.
      *
      * @var \Suitmedia\Cacheable\Tests\Repositories\UserRepository
      */
     protected $userRepository;
 
     /**
-     * Video Repository Object
+     * Video Repository Object.
      *
      * @var \Suitmedia\Cacheable\Tests\Repositories\VideoRepository
      */
@@ -80,7 +80,7 @@ class RepositoryTraitTests extends TestCase
     {
         $args = [
             'asd' => 'qwe',
-            'qwe' => 'rty'
+            'qwe' => 'rty',
         ];
         $actual = $this->videoRepository->cacheKey('getMyVideo', $args);
         $expected = 'Video:getMyVideo:6bc761f7eee0bc5fae1f5758f8e9f9dac3a94c7e';
