@@ -2,7 +2,6 @@
 
 namespace Suitmedia\Cacheable;
 
-use Illuminate\Cache\CacheManager;
 use Illuminate\Database\Eloquent\Model;
 
 class CacheableObserver
@@ -11,7 +10,8 @@ class CacheableObserver
      * Tell the cacheable service to flush all cache
      * that related to the given model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     protected function flushCache(Model $model)
@@ -20,9 +20,10 @@ class CacheableObserver
     }
 
     /**
-     * Saved event handler
+     * Saved event handler.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     public function saved(Model $model)
@@ -31,9 +32,10 @@ class CacheableObserver
     }
 
     /**
-     * Deleted event handler
+     * Deleted event handler.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     public function deleted(Model $model)
@@ -42,9 +44,10 @@ class CacheableObserver
     }
 
     /**
-     * Restored event handler
+     * Restored event handler.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     public function restored(Model $model)

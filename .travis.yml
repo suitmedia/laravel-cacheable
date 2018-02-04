@@ -18,7 +18,7 @@ matrix:
     - php: 7.1
       env: LARAVEL=5.5.* ORCHESTRA=3.5.*
     - php: hhvm
-      env: HHVM=1 LARAVEL=5.5.* ORCHESTRA=3.5.*
+      env: HHVM=1 LARAVEL=5.4.* ORCHESTRA=3.4.*
 
   allow_failures:
     - env: COVERAGE=1
