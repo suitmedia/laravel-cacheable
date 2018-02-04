@@ -1,0 +1,59 @@
+{
+    "name": "suitmedia/laravel-cacheable",
+    "description": "Decorate your repositories and make them cacheable",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/suitmedia/laravel-cacheable",
+    "keywords": [
+        "laravel",
+        "cache"
+    ],
+    "authors": [
+        {
+            "name": "Richan Fongdasen",
+            "email": "richan.fongdasen@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/suitmedia/laravel-cacheable/issues",
+        "source": "https://github.com/suitmedia/laravel-cacheable"
+    },
+    "require": {
+        "php": "^5.5.9 || ^7.0",
+        "illuminate/cache": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "illuminate/database": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0 || ~5.2 || ~4.8",
+        "orchestra/testbench": "~3.1",
+        "orchestra/database": "~3.1",
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "~0.9.8"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Suitmedia\\Cacheable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Suitmedia\\Cacheable\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Suitmedia\\Cacheable\\ServiceProvider"
+            ],
+            "aliases": {
+                "Cacheable": "Suitmedia\\Cacheable\\Facade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
