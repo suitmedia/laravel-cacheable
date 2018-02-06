@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\TaggableStore;
+use Illuminate\Cache\TaggedCache;
 use Suitmedia\Cacheable\Contracts\CacheableRepository;
 
 class CacheableService
@@ -13,7 +14,7 @@ class CacheableService
     /**
      * Cache manager object.
      *
-     * @var \Illuminate\Cache\CacheManager
+     * @var \Illuminate\Cache\TaggableStore
      */
     protected $cache;
 
@@ -132,10 +133,11 @@ class CacheableService
      * @param mixed  $tags
      * @param string $key
      * @param mixed  $value
+     * @return void
      */
     protected function setRuntimeCache($tags, $key, $value)
     {
-        return $this->runtimeCache->tags($tags)->forever($key, $value);
+        $this->runtimeCache->tags($tags)->forever($key, $value);
     }
 
     /**
@@ -144,7 +146,7 @@ class CacheableService
      * @param TaggableStore $cache
      * @param mixed         $tags
      *
-     * @return mixed
+     * @return \Illuminate\Cache\TaggedCache|TaggableStore
      */
     protected function taggedCache(TaggableStore $cache, $tags)
     {
