@@ -6,9 +6,7 @@ use Suitmedia\Cacheable\Tests\Models\Video;
 use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
 
 class VideoRepository extends EloquentRepository
-{
-    use CacheableTrait;
-    
+{   
     public function __construct(Video $model)
     {
         parent::__construct($model);    
