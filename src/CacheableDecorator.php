@@ -40,7 +40,7 @@ class CacheableDecorator
      * @param array $tags
      * @param Model $object
      *
-     * @return array
+     * @return array<string,boolean>
      */
     private function generateCustomTags($tags, Model $object)
     {

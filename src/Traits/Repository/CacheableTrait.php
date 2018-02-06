@@ -55,4 +55,12 @@ trait CacheableTrait
     {
         return $this->model()->cacheTags();
     }
+
+    /**
+     * Return the primary model object which would
+     * be used by the repository.
+     *
+     * @return \Suitmedia\Contracts\Cacheable\CacheableModel
+     */
+    abstract public function model();
 }
