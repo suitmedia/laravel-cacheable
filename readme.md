@@ -11,7 +11,7 @@
 
 ## Synopsis
 
-This package will help you to make your repositories cacheable without worrying about how to manage them and when you should flush those cache. Laravel Cacheable package uses a decorator pattern to wrap your existing repository and add the auto-caching feature into it.
+This package will help you to make your repositories cacheable without worrying about how to manage the cache, and when you should flush the cache. Laravel Cacheable package uses a decorator pattern to wrap your existing repository and add the auto-caching feature into it.
 
 ## Table of contents
 
