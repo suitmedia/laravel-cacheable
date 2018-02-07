@@ -6,7 +6,8 @@
     "homepage": "https://github.com/suitmedia/laravel-cacheable",
     "keywords": [
         "laravel",
-        "cache"
+        "cache",
+        "repository-pattern"
     ],
     "authors": [
         {
@@ -20,9 +21,9 @@
     },
     "require": {
         "php": "^5.5.9 || ^7.0",
-        "illuminate/cache": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-        "illuminate/database": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*",
-        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*"
+        "illuminate/cache": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/database": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.0 || ~5.2 || ~4.8",
