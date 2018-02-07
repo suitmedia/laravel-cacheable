@@ -6,7 +6,8 @@
     "homepage": "https://github.com/suitmedia/laravel-cacheable",
     "keywords": [
         "laravel",
-        "cache"
+        "cache",
+        "repository-pattern"
     ],
     "authors": [
         {
