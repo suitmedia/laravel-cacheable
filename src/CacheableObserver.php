@@ -31,7 +31,7 @@ class CacheableObserver
     /**
      * Fire cacheable events.
      *
-     * @param  \Cacheable\Events\CacheableEvent $event
+     * @param  \Suitmedia\Cacheable\Events\CacheableEvent $event
      * @return mixed
      */
     public function fireEvent(CacheableEvent $event)
@@ -47,7 +47,7 @@ class CacheableObserver
      * Tell the cacheable service to flush all cache
      * that related to the given model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      *
      * @return void
      */
@@ -65,11 +65,11 @@ class CacheableObserver
     /**
      * Saved event handler.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      *
      * @return void
      */
-    public function saved(Model $model)
+    public function saved(CacheableModel $model)
     {
         $this->flushCache($model);
     }
@@ -77,11 +77,11 @@ class CacheableObserver
     /**
      * Deleted event handler.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      *
      * @return void
      */
-    public function deleted(Model $model)
+    public function deleted(CacheableModel $model)
     {
         $this->flushCache($model);
     }
@@ -89,11 +89,11 @@ class CacheableObserver
     /**
      * Restored event handler.
      *
-     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      *
      * @return void
      */
-    public function restored(Model $model)
+    public function restored(CacheableModel $model)
     {
         $this->flushCache($model);
     }
