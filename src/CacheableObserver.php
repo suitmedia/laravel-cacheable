@@ -31,7 +31,8 @@ class CacheableObserver
     /**
      * Fire cacheable events.
      *
-     * @param  \Suitmedia\Cacheable\Events\CacheableEvent $event
+     * @param \Suitmedia\Cacheable\Events\CacheableEvent $event
+     *
      * @return mixed
      */
     public function fireEvent(CacheableEvent $event)
