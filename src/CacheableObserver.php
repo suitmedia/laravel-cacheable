@@ -12,14 +12,14 @@ use Suitmedia\Cacheable\Events\CacheableInvalidating;
 class CacheableObserver
 {
     /**
-     * Event dispatcher object
+     * Event dispatcher object.
      *
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
     protected $events;
 
     /**
-     * Cacheable observer constructor
+     * Cacheable observer constructor.
      *
      * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
@@ -29,7 +29,7 @@ class CacheableObserver
     }
 
     /**
-     * Fire cacheable events
+     * Fire cacheable events.
      *
      * @param  \Cacheable\Events\CacheableEvent $event
      * @return mixed

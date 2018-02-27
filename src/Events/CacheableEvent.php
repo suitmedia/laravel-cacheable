@@ -10,21 +10,21 @@ abstract class CacheableEvent
     use SerializesModels;
 
     /**
-     * Cacheable model object
+     * Cacheable model object.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableModel
      */
     protected $model;
 
     /**
-     * Cache tags which are being invalidating
+     * Cache tags which are being invalidating.
      *
      * @var mixed
      */
     protected $tags;
 
     /**
-     * Event constructor
+     * Event constructor.
      *
      * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      * @param mixed                                         $tags
@@ -36,7 +36,7 @@ abstract class CacheableEvent
     }
 
     /**
-     * Model accessor
+     * Model accessor.
      *
      * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
@@ -46,7 +46,7 @@ abstract class CacheableEvent
     }
 
     /**
-     * Tags accessor
+     * Tags accessor.
      *
      * @return mixed
      */
