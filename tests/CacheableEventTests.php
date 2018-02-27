@@ -1,0 +1,54 @@
+<?php
+
+namespace Suitmedia\Cacheable\Tests;
+
+use Suitmedia\Cacheable\Events\CacheableInvalidating;
+use Suitmedia\Cacheable\Tests\Models\Video;
+
+class CacheableEventTests extends TestCase
+{
+    /**
+     * Cacheable Event Object
+     *
+     * @var \Suitmedia\Cacheable\Events\CacheableEvent
+     */
+    protected $event;
+
+    /**
+     * Cacheable model object
+     *
+     * @var \Suitmedia\Cacheable\Contracts\CacheableModel
+     */
+    protected $model;
+
+    /**
+     * Setup test requirements
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->model = new Video;
+        $this->event = new CacheableInvalidating(
+            $this->model,
+            $this->model->cacheTags()
+        );
+    }
+
+    /** @test */
+    public function return_affected_model_correctly()
+    {
+        $actual = $this->event->model();
+
+        $this->assertEquals($this->model, $actual);
+    }
+
+    /** @test */
+    public function return_invalidate_tags_correctly()
+    {
+        $actual = $this->event->tags();
+        $expected = $this->model->cacheTags();
+
+        $this->assertEquals($expected, $actual);
+    }
+}
