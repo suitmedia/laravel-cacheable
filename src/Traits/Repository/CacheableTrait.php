@@ -12,6 +12,10 @@ trait CacheableTrait
      */
     public function cacheDuration()
     {
+        if (property_exists($this, 'cacheDuration')) {
+            return (int) static::$cacheDuration;
+        }
+
         return $this->model()->cacheDuration();
     }
 
@@ -23,7 +27,13 @@ trait CacheableTrait
      */
     public function cacheExcept()
     {
-        return \Cacheable::getConfiguration('except');
+        $result = \Cacheable::getConfiguration('except');
+
+        if (property_exists($this, 'cacheExcept')) {
+            $result = array_unique(array_merge($result, (array) static::$cacheExcept));
+        }
+
+        return $result;
     }
 
     /**
@@ -53,6 +63,10 @@ trait CacheableTrait
      */
     public function cacheTags()
     {
+        if (property_exists($this, 'cacheTags')) {
+            return (array) static::$cacheTags;
+        }
+
         return $this->model()->cacheTags();
     }
 

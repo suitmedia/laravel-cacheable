@@ -179,4 +179,32 @@ class DecoratorTests extends TestCase
 
         $this->assertEquals('All Videos', $result);
     }
+
+    /** @test */
+    public function convert_repository_method_return_value_from_null_to_false()
+    {
+        $this->mockedRepository->shouldReceive('getAllVideos')
+            ->times(1)
+            ->andReturn(null);
+        $this->mockedRepository->shouldReceive('cacheTags')
+            ->times(2)
+            ->andReturn('Video');
+        $this->mockedRepository->shouldReceive('cacheDuration')
+            ->times(2)
+            ->andReturn(120);
+        $this->mockedRepository->shouldReceive('cacheExcept')
+            ->times(2)
+            ->andReturn(['create', 'update', 'delete']);
+        $this->mockedRepository->shouldReceive('cacheKey')
+            ->times(2)
+            ->andReturn('cache-key-123');
+
+        $decorator = new CacheableDecorator(app(CacheableService::class), $this->mockedRepository);
+
+        $decorator->getAllVideos();
+
+        $result = $decorator->getAllVideos();
+
+        $this->assertFalse($result);
+    }
 }
