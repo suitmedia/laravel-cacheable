@@ -15,6 +15,7 @@ trait CacheableTrait
         if (property_exists($this, 'cacheDuration')) {
             return (int) static::$cacheDuration;
         }
+
         return $this->model()->cacheDuration();
     }
 
@@ -27,11 +28,11 @@ trait CacheableTrait
     public function cacheExcept()
     {
         $result = \Cacheable::getConfiguration('except');
-        
+
         if (property_exists($this, 'cacheExcept')) {
             $result = array_unique(array_merge($result, (array) static::$cacheExcept));
         }
-        
+
         return $result;
     }
 
@@ -65,6 +66,7 @@ trait CacheableTrait
         if (property_exists($this, 'cacheTags')) {
             return (array) static::$cacheTags;
         }
+
         return $this->model()->cacheTags();
     }
 
