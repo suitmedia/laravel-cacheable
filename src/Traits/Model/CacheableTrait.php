@@ -28,6 +28,7 @@ trait CacheableTrait
         if (property_exists($this, 'cacheDuration')) {
             return (int) static::$cacheDuration;
         }
+
         return \Cacheable::getConfiguration('duration');
     }
 

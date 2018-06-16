@@ -119,6 +119,7 @@ class CacheableDecorator
             $repository->cacheDuration(),
             function () use ($repository, $method, $args) {
                 $result = call_user_func_array([$repository, $method], $args);
+
                 return ($result !== null) ? $result : false;
             }
         );
