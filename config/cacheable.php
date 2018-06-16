@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'customTags' => \Suitmedia\Cacheable\Tests\Models\User::class,
+    'customTags' => \App\User::class,
 
     /*
     |--------------------------------------------------------------------------

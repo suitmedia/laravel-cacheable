@@ -37,6 +37,7 @@ abstract class TestCase extends BaseTest
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        $app['config']->set('cacheable.customTags', User::class);
     }
 
     /**
