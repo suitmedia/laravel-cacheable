@@ -6,7 +6,9 @@ use Suitmedia\Cacheable\Tests\Models\Video;
 use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
 
 class VideoRepository extends EloquentRepository
-{   
+{
+    protected static $cacheTags = ['Video', 'VideoAlbum'];
+
     public function __construct(Video $model)
     {
         parent::__construct($model);    
@@ -25,10 +27,5 @@ class VideoRepository extends EloquentRepository
     public function update($params)
     {
         //
-    }
-
-    public function cacheTags()
-    {
-        return ['Video', 'VideoAlbum'];
     }
 }

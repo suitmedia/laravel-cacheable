@@ -70,7 +70,11 @@ class RepositoryTraitTests extends TestCase
     {
         $actual = $this->userRepository->cacheExcept();
 
-        $expected = ['add', 'edit'];
+        $expected = [
+            'cacheDuration', 'cacheExcept', 'cacheKey',
+            'cacheTags', 'create', 'delete', 'restore',
+            'update', 'updateOrCreate', 'add', 'edit',
+        ];
 
         $this->assertEquals($expected, $actual);
     }

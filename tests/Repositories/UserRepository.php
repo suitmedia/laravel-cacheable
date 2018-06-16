@@ -6,7 +6,10 @@ use Suitmedia\Cacheable\Tests\Models\User;
 use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
 
 class UserRepository extends EloquentRepository
-{   
+{
+    protected static $cacheDuration = 3600;
+    protected static $cacheExcept = ['add', 'edit', 'create'];
+
     public function __construct(User $model)
     {
         parent::__construct($model);    
@@ -25,16 +28,6 @@ class UserRepository extends EloquentRepository
     public function update($params)
     {
         //
-    }
-
-    public function cacheDuration()
-    {
-        return 3600;
-    }
-
-    public function cacheExcept()
-    {
-        return ['add', 'edit'];
     }
 
     public function cacheKey($method, $args)

@@ -25,6 +25,9 @@ trait CacheableTrait
      */
     public function cacheDuration()
     {
+        if (property_exists($this, 'cacheDuration')) {
+            return (int) static::$cacheDuration;
+        }
         return \Cacheable::getConfiguration('duration');
     }
 
@@ -36,6 +39,10 @@ trait CacheableTrait
      */
     public function cacheTags()
     {
+        if (property_exists($this, 'cacheTags')) {
+            return (array) static::$cacheTags;
+        }
+
         $className = get_class($this);
 
         return last(explode('\\', $className));

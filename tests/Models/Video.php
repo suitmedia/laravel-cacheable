@@ -12,13 +12,10 @@ class Video extends Model implements CacheableModel
     use CacheableTrait;
     use SoftDeletes;
 
+    protected static $cacheDuration = 120;
+
     protected $fillable = [
         'title',
         'url'
     ];
-
-    public function cacheDuration()
-    {
-        return 120;
-    }
 }

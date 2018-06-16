@@ -10,14 +10,11 @@ class User extends Model implements CacheableModel
 {
     use CacheableTrait;
 
+    protected static $cacheTags = ['User', 'UserRoles'];
+
     protected $fillable = [
         'name',
         'email',
         'password'
     ];
-
-    public function cacheTags()
-    {
-        return ['User', 'UserRoles'];
-    }
 }
