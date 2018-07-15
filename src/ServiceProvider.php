@@ -33,7 +33,7 @@ class ServiceProvider extends Provider
         });
 
         $this->app->singleton(CacheableObserver::class, function () {
-            return new CacheableObserver;
+            return new CacheableObserver();
         });
     }
 }
