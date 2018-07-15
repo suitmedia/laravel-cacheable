@@ -31,5 +31,9 @@ class ServiceProvider extends Provider
         $this->app->singleton(CacheableService::class, function () {
             return new CacheableService(app('cache'), new ArrayStore());
         });
+
+        $this->app->singleton(CacheableObserver::class, function () {
+            return new CacheableObserver();
+        });
     }
 }
