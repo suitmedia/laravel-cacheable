@@ -2,13 +2,32 @@
 
 namespace Suitmedia\Cacheable;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Suitmedia\Cacheable\Contracts\CacheableModel;
 use Suitmedia\Cacheable\Events\CacheableInvalidated;
 use Suitmedia\Cacheable\Events\CacheableInvalidating;
 
 class CacheableObserver
 {
+    /**
+     * The dirty fields of all observed models.
+     *
+     * @var \Illuminate\Support\Collection
+     */
+    protected $dirtyFields;
+
+    /**
+     * Class constructor
+     *
+     * @param \Illuminate\Support\Collection $dirtyFields
+     */
+    public function __construct(Collection $dirtyFields)
+    {
+        $this->dirtyFields = $dirtyFields;
+    }
+
     /**
      * Tell the cacheable service to flush all cache
      * that related to the given model.
@@ -19,13 +38,14 @@ class CacheableObserver
      */
     protected function flushCache(CacheableModel $model)
     {
+        $affectedFields = $this->dirtyFields->get(get_class($model));
         $tags = $model->cacheTags();
 
-        event(new CacheableInvalidating($model, $tags));
+        event(new CacheableInvalidating($model, $tags, $affectedFields));
 
         \Cacheable::flush($tags);
 
-        event(new CacheableInvalidated($model, $tags));
+        event(new CacheableInvalidated($model, $tags, $affectedFields));
     }
 
     /**
@@ -41,6 +61,18 @@ class CacheableObserver
     }
 
     /**
+     * saving event handler.
+     *
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
+     *
+     * @return void
+     */
+    public function saving(CacheableModel $model)
+    {
+        $this->dirtyFields->put(get_class($model), $model->getDirty());
+    }
+
+    /**
      * Deleted event handler.
      *
      * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
@@ -53,6 +85,18 @@ class CacheableObserver
     }
 
     /**
+     * deleting event handler.
+     *
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
+     *
+     * @return void
+     */
+    public function deleting(CacheableModel $model)
+    {
+        $this->dirtyFields->put(get_class($model), ['deleted_at' => Carbon::now()]);
+    }
+
+    /**
      * Restored event handler.
      *
      * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
@@ -62,5 +106,17 @@ class CacheableObserver
     public function restored(CacheableModel $model)
     {
         $this->flushCache($model);
+    }
+
+    /**
+     * restoring event handler.
+     *
+     * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
+     *
+     * @return void
+     */
+    public function restoring(CacheableModel $model)
+    {
+        $this->dirtyFields->put(get_class($model), ['deleted_at' => null]);
     }
 }

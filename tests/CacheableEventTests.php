@@ -31,8 +31,18 @@ class CacheableEventTests extends TestCase
         $this->model = new Video;
         $this->event = new CacheableInvalidating(
             $this->model,
-            $this->model->cacheTags()
+            $this->model->cacheTags(),
+            ['title' => 'new title']
         );
+    }
+
+    /** @test */
+    public function return_affected_fields_correctly()
+    {
+        $actual = $this->event->affectedFields();
+        $expected = ['title' => 'new title'];
+
+        $this->assertEquals($expected, $actual);
     }
 
     /** @test */

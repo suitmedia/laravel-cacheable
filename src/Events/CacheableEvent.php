@@ -10,6 +10,13 @@ abstract class CacheableEvent
     use SerializesModels;
 
     /**
+     * The affected fields in the current cacheable event.
+     *
+     * @var array
+     */
+    protected $affectedFields;
+
+    /**
      * Cacheable model object.
      *
      * @var \Suitmedia\Cacheable\Contracts\CacheableModel
@@ -29,10 +36,21 @@ abstract class CacheableEvent
      * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      * @param mixed                                         $tags
      */
-    public function __construct(CacheableModel $model, $tags)
+    public function __construct(CacheableModel $model, $tags, $affectedFields = [])
     {
+        $this->affectedFields = $affectedFields;
         $this->model = $model;
         $this->tags = $tags;
+    }
+
+    /**
+     * Affected fields accessor.
+     *
+     * @return array
+     */
+    public function affectedFields()
+    {
+        return $this->affectedFields;
     }
 
     /**
