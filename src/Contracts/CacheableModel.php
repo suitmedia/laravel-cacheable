@@ -19,4 +19,11 @@ interface CacheableModel
      * @return mixed
      */
     public function cacheTags();
+
+    /**
+     * Get the attributes that have been changed since last sync.
+     *
+     * @return array
+     */
+    public function getDirty();
 }
