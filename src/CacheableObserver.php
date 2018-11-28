@@ -19,7 +19,7 @@ class CacheableObserver
     protected $dirtyFields;
 
     /**
-     * Class constructor
+     * Class constructor.
      *
      * @param \Illuminate\Support\Collection $dirtyFields
      */
