@@ -70,7 +70,7 @@ class CacheableDecorator
         $customTags = [];
 
         foreach ($args as $arg) {
-            if (is_object($arg) && in_array(get_class($arg), $customTagInstances)) {
+            if (is_object($arg) && in_array(get_class($arg), $customTagInstances, true)) {
                 $customTags = array_merge($customTags, $this->generateCustomTags($tags, $arg));
             }
         }
@@ -87,7 +87,7 @@ class CacheableDecorator
      */
     private function methodIsCacheable($method)
     {
-        return !in_array($method, $this->repository->cacheExcept());
+        return !in_array($method, $this->repository->cacheExcept(), true);
     }
 
     /**
