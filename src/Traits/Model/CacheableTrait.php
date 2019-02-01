@@ -18,21 +18,6 @@ trait CacheableTrait
     }
 
     /**
-     * Return the cache duration value
-     * for this model.
-     *
-     * @return int
-     */
-    public function cacheDuration()
-    {
-        if (property_exists($this, 'cacheDuration')) {
-            return (int) static::$cacheDuration;
-        }
-
-        return (int) config('cacheable.duration');
-    }
-
-    /**
      * Generate cache tags automatically
      * based on the model class name.
      *

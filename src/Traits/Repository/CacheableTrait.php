@@ -16,7 +16,7 @@ trait CacheableTrait
             return (int) static::$cacheDuration;
         }
 
-        return $this->model()->cacheDuration();
+        return (int) config('cacheable.duration');
     }
 
     /**
