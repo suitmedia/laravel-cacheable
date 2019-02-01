@@ -46,8 +46,7 @@ class CacheableService
     }
 
     /**
-     * Build CacheableDecorator based on the given class name
-     * or repository object.
+     * Just an alias of wrap() method.
      *
      * @param mixed $repository
      *
@@ -55,11 +54,7 @@ class CacheableService
      */
     public function build($repository)
     {
-        if (is_string($repository)) {
-            $repository = \App::make($repository);
-        }
-
-        return $this->wrapWithDecorator($repository);
+        return $this->wrap($repository);
     }
 
     /**
@@ -151,7 +146,24 @@ class CacheableService
      */
     protected function taggedCache(TaggableStore $cache, $tags)
     {
-        return ($tags) ? $cache->tags($tags) : $cache;
+        return !empty($tags) ? $cache->tags($tags) : $cache;
+    }
+
+    /**
+     * Build CacheableDecorator and wrap the given class name
+     * or repository object.
+     *
+     * @param mixed $repository
+     *
+     * @return \Suitmedia\Cacheable\CacheableDecorator
+     */
+    public function wrap($repository)
+    {
+        if (is_string($repository)) {
+            $repository = \App::make($repository);
+        }
+
+        return $this->wrapWithDecorator($repository);
     }
 
     /**
