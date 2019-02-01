@@ -44,8 +44,6 @@ trait CacheableTrait
             return (array) static::$cacheTags;
         }
 
-        $className = get_class($this);
-
-        return last(explode('\\', $className));
+        return class_basename(get_class($this));
     }
 }

@@ -44,7 +44,7 @@ class CacheableDecorator
      */
     private function generateCustomTags($tags, Model $object)
     {
-        $class = last(explode('\\', get_class($object)));
+        $class = class_basename(get_class($object));
         $customTags = [$class.':'.$object->getKey() => true];
 
         foreach ($tags as $tag) {
