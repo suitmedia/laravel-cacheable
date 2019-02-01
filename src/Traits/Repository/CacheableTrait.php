@@ -5,8 +5,8 @@ namespace Suitmedia\Cacheable\Traits\Repository;
 trait CacheableTrait
 {
     /**
-     * Get the cache duration value from
-     * the model object.
+     * Return the cache duration value
+     * which would be used by the repository.
      *
      * @return int
      */
@@ -57,7 +57,8 @@ trait CacheableTrait
     }
 
     /**
-     * Get the cache tags from the model object.
+     * Return the cache tags which would
+     * be used by the repository.
      *
      * @return mixed
      */
