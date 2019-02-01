@@ -3,6 +3,7 @@
 namespace Suitmedia\Cacheable;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Suitmedia\Cacheable\Contracts\CacheableRepository;
 use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
 
@@ -37,22 +38,21 @@ class CacheableDecorator
     /**
      * Generate custom cache tags.
      *
-     * @param array $tags
-     * @param Model $object
+     * @param \Illuminate\Support\Collection      $tags
+     * @param \Illuminate\Database\Eloquent\Model $object
      *
-     * @return array<string,boolean>
+     * @return void
      */
-    private function generateCustomTags($tags, Model $object)
+    private function generateCustomTags(Collection $tags, Model $object)
     {
         $class = class_basename(get_class($object));
-        $customTags = [$class.':'.$object->getKey() => true];
+        $baseTags = (array) $this->repository->cacheTags();
 
-        foreach ($tags as $tag) {
-            $key = $tag.':'.$class.':'.$object->getKey();
-            $customTags[$key] = true;
+        $tags->push($class.':'.$object->getKey());
+
+        foreach ($baseTags as $tag) {
+            $tags->push($tag.':'.$class.':'.$object->getKey());
         }
-
-        return $customTags;
     }
 
     /**
@@ -64,18 +64,29 @@ class CacheableDecorator
      */
     private function generateTags($args)
     {
-        $args = (array) $args;
-        $tags = (array) $this->repository->cacheTags();
-        $customTagInstances = (array) $this->service->getConfiguration('customTags');
-        $customTags = [];
+        $args = collect($args);
+        $tags = collect($this->repository->cacheTags());
 
-        foreach ($args as $arg) {
-            if (is_object($arg) && in_array(get_class($arg), $customTagInstances, true)) {
-                $customTags = array_merge($customTags, $this->generateCustomTags($tags, $arg));
+        $args->each(function ($object) use ($tags) {
+            if ($this->isCustomTagInstance($object)) {
+                $this->generateCustomTags($tags, $object);
             }
-        }
+        });
 
-        return array_merge($tags, array_keys($customTags));
+        return $tags->sort()->unique()->all();
+    }
+
+    /**
+     * Determine if the given object is a custom tag instance.
+     *
+     * @param mixed $object
+     * @return boolean
+     */
+    private function isCustomTagInstance($object)
+    {
+        $customTagInstances = (array) $this->service->getConfiguration('customTags');
+
+        return is_object($object) && ($object instanceof Model) && in_array(get_class($object), $customTagInstances, true);
     }
 
     /**

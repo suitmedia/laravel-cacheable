@@ -53,21 +53,44 @@ class DecoratorTests extends TestCase
     }
 
     /** @test */
+    public function determine_if_the_method_argument_is_a_custom_tag_instance()
+    {
+        $this->assertFalse($this->invokeMethod(
+            $this->decorator,
+            'isCustomTagInstance',
+            [collect()]
+        ));
+
+        $this->assertFalse($this->invokeMethod(
+            $this->decorator,
+            'isCustomTagInstance',
+            [str_random(8)]
+        ));
+
+        $this->assertTrue($this->invokeMethod(
+            $this->decorator,
+            'isCustomTagInstance',
+            [$this->user]
+        ));
+    }
+
+    /** @test */
     public function generate_the_custom_tags()
     {
-        $tags = $this->invokeMethod(
+        $tags = collect();
+        $this->invokeMethod(
             $this->decorator,
             'generateCustomTags',
-            [['Video', 'Article'], $this->user]
+            [$tags, $this->user]
         );
 
         $expected = [
-            'User:1' => true,
-            'Video:User:1' => true,
-            'Article:User:1' => true
+            'User:1',
+            'Video:User:1',
+            'VideoAlbum:User:1'
         ];
 
-        $this->assertEquals($expected, $tags);
+        $this->assertEquals($expected, $tags->all());
     }
 
     /** @test */

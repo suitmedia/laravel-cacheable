@@ -3,6 +3,7 @@
 namespace Suitmedia\Cacheable;
 
 use Illuminate\Cache\ArrayStore;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class ServiceProvider extends Provider
@@ -28,6 +29,17 @@ class ServiceProvider extends Provider
     {
         $this->mergeConfigFrom(realpath(dirname(__DIR__).'/config/cacheable.php'), 'cacheable');
 
+        $this->registerSingletons();
+    }
+
+
+    /**
+     * Register the package's singleton objects.
+     *
+     * @return void
+     */
+    public function registerSingletons()
+    {
         $this->app->singleton(CacheableService::class, function () {
             return new CacheableService(app('cache'), new ArrayStore());
         });
