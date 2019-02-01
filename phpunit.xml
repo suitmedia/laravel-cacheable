@@ -8,8 +8,7 @@
     convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
     processIsolation="false"
-    stopOnFailure="true"
-    syntaxCheck="false">
+    stopOnFailure="true">
     <testsuites>
         <testsuite name="Cacheable Test Suite">
             <directory suffix="Tests.php">./tests/</directory>
