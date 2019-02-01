@@ -29,7 +29,7 @@ trait CacheableTrait
             return (int) static::$cacheDuration;
         }
 
-        return \Cacheable::getConfiguration('duration');
+        return (int) config('cacheable.duration');
     }
 
     /**

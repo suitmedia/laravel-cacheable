@@ -19,13 +19,6 @@ class CacheableService
     protected $cache;
 
     /**
-     * Cacheable configurations.
-     *
-     * @var array
-     */
-    protected $configurations;
-
-    /**
      * Runtime cache.
      *
      * @var \Illuminate\Cache\ArrayStore
@@ -41,7 +34,6 @@ class CacheableService
     public function __construct(CacheManager $cache, ArrayStore $runtimeCache)
     {
         $this->cache = $cache->store()->getStore();
-        $this->configurations = \Config::get('cacheable');
         $this->runtimeCache = $runtimeCache;
     }
 
@@ -68,18 +60,6 @@ class CacheableService
     {
         $this->taggedCache($this->cache, $tags)->flush();
         $this->taggedCache($this->runtimeCache, $tags)->flush();
-    }
-
-    /**
-     * Get configuration value.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function getConfiguration($key)
-    {
-        return data_get($this->configurations, $key, null);
     }
 
     /**
