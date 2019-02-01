@@ -27,7 +27,7 @@ trait CacheableTrait
      */
     public function cacheExcept()
     {
-        $result = \Cacheable::getConfiguration('except');
+        $result = (array) config('cacheable.except');
 
         if (property_exists($this, 'cacheExcept')) {
             $result = array_unique(array_merge($result, (array) static::$cacheExcept));

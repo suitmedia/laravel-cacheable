@@ -74,22 +74,6 @@ class ServiceTests extends TestCase
     }
 
     /** @test */
-    public function get_custom_tags_config()
-    {
-        $config = $this->service->getConfiguration('customTags');
-
-        $this->assertEquals(User::class, $config);
-    }
-
-    /** @test */
-    public function get_default_cache_duration_config()
-    {
-        $config = $this->service->getConfiguration('duration');
-
-        $this->assertEquals(0, $config);
-    }
-
-    /** @test */
     public function runtime_cache_getter_and_setter()
     {
         // Set runtime cache

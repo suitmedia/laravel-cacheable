@@ -85,7 +85,7 @@ class CacheableDecorator
      */
     private function isCustomTagInstance($object)
     {
-        $customTagInstances = (array) $this->service->getConfiguration('customTags');
+        $customTagInstances = (array) config('cacheable.customTags');
 
         return is_object($object) && ($object instanceof Model) && in_array(get_class($object), $customTagInstances, true);
     }
