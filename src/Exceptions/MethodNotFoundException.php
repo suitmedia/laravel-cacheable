@@ -46,6 +46,7 @@ class MethodNotFoundException extends BadMethodCallException
      *
      * @param string $repository
      * @param string $method
+     * @return \Suitmedia\Cacheable\Exceptions\MethodNotFoundException
      */
     public function setRepositoryMethod($repository, $method)
     {

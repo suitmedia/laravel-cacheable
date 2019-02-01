@@ -50,7 +50,7 @@ trait CacheableTrait
         $args = sha1(serialize($args));
 
         if (ends_with($class, 'Repository')) {
-            $class = substr($class, 0, strlen($class) - 10);
+            $class = substr($class, 0, -10);
         }
 
         return implode(':', [$class, $method, $args]);

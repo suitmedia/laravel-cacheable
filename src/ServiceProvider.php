@@ -15,7 +15,7 @@ class ServiceProvider extends Provider
     public function boot()
     {
         $this->publishes([
-            realpath(__DIR__.'/../config/cacheable.php') => config_path('cacheable.php'),
+            realpath(dirname(__DIR__).'/config/cacheable.php') => config_path('cacheable.php'),
         ], 'config');
     }
 
@@ -26,7 +26,7 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->mergeConfigFrom(realpath(__DIR__.'/../config/cacheable.php'), 'cacheable');
+        $this->mergeConfigFrom(realpath(dirname(__DIR__).'/config/cacheable.php'), 'cacheable');
 
         $this->app->singleton(CacheableService::class, function () {
             return new CacheableService(app('cache'), new ArrayStore());
