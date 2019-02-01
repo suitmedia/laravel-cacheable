@@ -33,22 +33,6 @@ class ModelTraitTests extends TestCase
     }
 
     /** @test */
-    public function get_default_cache_duration_value()
-    {
-        $duration = (int) $this->userModel->cacheDuration();
-
-        $this->assertEquals(0, $duration);
-    }
-
-    /** @test */
-    public function get_overriden_cache_duration_value()
-    {
-        $duration = (int) $this->videoModel->cacheDuration();
-
-        $this->assertEquals(120, $duration);
-    }
-
-    /** @test */
     public function get_default_cache_tags_value()
     {
         $tags = $this->videoModel->cacheTags();

@@ -30,11 +30,11 @@ class RepositoryTraitTests extends TestCase
     }
 
     /** @test */
-    public function get_default_cache_duration_value_from_model_object()
+    public function get_default_cache_duration_value_from_configuration()
     {
         $duration = (int) $this->videoRepository->cacheDuration();
 
-        $this->assertEquals(120, $duration);
+        $this->assertEquals(0, $duration);
     }
 
     /** @test */
