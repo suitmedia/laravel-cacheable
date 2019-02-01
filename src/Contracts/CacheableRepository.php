@@ -42,7 +42,7 @@ interface CacheableRepository
      * Return the primary model object which would
      * be used by the repository.
      *
-     * @return \Suitmedia\Contracts\Cacheable\CacheableModel
+     * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
     public function model();
 }
