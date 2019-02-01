@@ -5,6 +5,22 @@ namespace Suitmedia\Cacheable\Traits\Repository;
 trait CacheableTrait
 {
     /**
+     * Get the base class name, without 'Repository' suffix.
+     *
+     * @return string
+     */
+    protected function baseClassName()
+    {
+        $class = class_basename(get_class($this));
+
+        if (ends_with($class, 'Repository')) {
+            $class = substr($class, 0, -10);
+        }
+
+        return $class;
+    }
+
+    /**
      * Return the cache duration value
      * which would be used by the repository.
      *
@@ -46,12 +62,8 @@ trait CacheableTrait
      */
     public function cacheKey($method, $args)
     {
-        $class = class_basename(get_class($this));
+        $class = $this->baseClassName();
         $args = sha1(serialize($args));
-
-        if (ends_with($class, 'Repository')) {
-            $class = substr($class, 0, -10);
-        }
 
         return implode(':', [$class, $method, $args]);
     }
