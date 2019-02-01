@@ -46,7 +46,7 @@ trait CacheableTrait
      */
     public function cacheKey($method, $args)
     {
-        $class = last(explode('\\', get_class($this)));
+        $class = class_basename(get_class($this));
         $args = sha1(serialize($args));
 
         if (ends_with($class, 'Repository')) {
