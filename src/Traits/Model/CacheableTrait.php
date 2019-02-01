@@ -36,7 +36,7 @@ trait CacheableTrait
      * Generate cache tags automatically
      * based on the model class name.
      *
-     * @return string
+     * @return string|array
      */
     public function cacheTags()
     {

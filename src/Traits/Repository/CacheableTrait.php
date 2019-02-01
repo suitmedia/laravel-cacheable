@@ -74,7 +74,7 @@ trait CacheableTrait
      * Return the primary model object which would
      * be used by the repository.
      *
-     * @return \Suitmedia\Contracts\Cacheable\CacheableModel
+     * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
     abstract public function model();
 }

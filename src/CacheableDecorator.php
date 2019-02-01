@@ -79,7 +79,7 @@ class CacheableDecorator
     }
 
     /**
-     * Finds whether the metod is cacheable.
+     * Finds whether the method is cacheable.
      *
      * @param string $method
      *
