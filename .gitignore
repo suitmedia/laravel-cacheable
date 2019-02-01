@@ -19,6 +19,14 @@ Vagrantfile
 *.log
 
 
+# Code Editor / IDE Files
+# ----------------------------------------------------------------------- #
+
+.idea
+.sublime-project
+.sublime-workspace
+
+
 # Composer & Vendor Files
 # ----------------------------------------------------------------------- #
 
