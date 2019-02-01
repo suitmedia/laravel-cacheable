@@ -35,6 +35,7 @@ abstract class CacheableEvent
      *
      * @param \Suitmedia\Cacheable\Contracts\CacheableModel $model
      * @param mixed                                         $tags
+     * @param array                                         $affectedFields
      */
     public function __construct(CacheableModel $model, $tags, $affectedFields = [])
     {
