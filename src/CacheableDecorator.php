@@ -80,7 +80,8 @@ class CacheableDecorator
      * Determine if the given object is a custom tag instance.
      *
      * @param mixed $object
-     * @return boolean
+     *
+     * @return bool
      */
     private function isCustomTagInstance($object)
     {

@@ -3,7 +3,6 @@
 namespace Suitmedia\Cacheable;
 
 use Illuminate\Cache\ArrayStore;
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class ServiceProvider extends Provider
@@ -31,7 +30,6 @@ class ServiceProvider extends Provider
 
         $this->registerSingletons();
     }
-
 
     /**
      * Register the package's singleton objects.
