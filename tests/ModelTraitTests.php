@@ -22,9 +22,11 @@ class ModelTraitTests extends TestCase
     protected $videoModel;
 
     /**
-     * Setup test requirements
+     * Setup the test environment
+     *
+     * @return void
      */
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
 

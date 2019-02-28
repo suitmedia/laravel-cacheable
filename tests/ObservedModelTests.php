@@ -14,9 +14,11 @@ class ObservedModelTests extends TestCase
     protected $model;
 
     /**
-     * Setup test requirements
+     * Setup the test environment
+     *
+     * @return void
      */
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
 

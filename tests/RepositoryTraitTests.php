@@ -21,7 +21,12 @@ class RepositoryTraitTests extends TestCase
      */
     protected $videoRepository;
 
-    public function setUp()
+    /**
+     * Setup the test environment
+     *
+     * @return void
+     */
+    public function setUp() :void
     {
         parent::setUp();
 
