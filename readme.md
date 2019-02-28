@@ -24,7 +24,10 @@ This package will help you to make your repositories cacheable without worrying 
 
 ## Compatibility
 
-This package supports Laravel versions from ``5.1.35`` to ``5.7.*``
+ Laravel version   | Cacheable version
+:------------------|:-----------------
+ 5.1.x - 5.4.x     | 1.0.x - 1.3.x
+ 5.5.x - 5.8.x     | 1.4.x
 
 ## Requirements
 
