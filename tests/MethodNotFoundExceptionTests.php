@@ -14,9 +14,11 @@ class MethodNotFoundExceptionTests extends TestCase
     protected $exception;
 
     /**
-     * Setup test requirements
+     * Setup the test environment
+     *
+     * @return void
      */
-    public function setUp()
+    public function setUp() :void
     {
         $this->exception = (new MethodNotFoundException())
             ->setRepositoryMethod('VideoRepository', 'getAllVideos');

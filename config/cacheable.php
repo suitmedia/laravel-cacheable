@@ -19,7 +19,7 @@ return [
     | Default Cache Duration
     |--------------------------------------------------------------------------
     |
-    | Define the default cache duration here.
+    | Define the default cache duration in seconds.
     | Setting the cache duration to '0' will make the cache lasts forever.
     |
     */

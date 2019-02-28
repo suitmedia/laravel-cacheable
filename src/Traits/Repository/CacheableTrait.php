@@ -21,7 +21,7 @@ trait CacheableTrait
     }
 
     /**
-     * Return the cache duration value
+     * Return the cache duration value in seconds,
      * which would be used by the repository.
      *
      * @return int
