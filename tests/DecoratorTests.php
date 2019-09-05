@@ -2,6 +2,7 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use Illuminate\Support\Str;
 use Suitmedia\Cacheable\Tests\Models\Video;
 use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
 use Suitmedia\Cacheable\CacheableDecorator;
@@ -66,7 +67,7 @@ class DecoratorTests extends TestCase
         $this->assertFalse($this->invokeMethod(
             $this->decorator,
             'isCustomTagInstance',
-            [str_random(8)]
+            [Str::random(8)]
         ));
 
         $this->assertTrue($this->invokeMethod(

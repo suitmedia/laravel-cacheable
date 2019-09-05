@@ -2,6 +2,8 @@
 
 namespace Suitmedia\Cacheable\Traits\Repository;
 
+use Illuminate\Support\Str;
+
 trait CacheableTrait
 {
     /**
@@ -13,7 +15,7 @@ trait CacheableTrait
     {
         $class = class_basename(get_class($this));
 
-        if (ends_with($class, 'Repository')) {
+        if (Str::endsWith($class, 'Repository')) {
             $class = substr($class, 0, -10);
         }
 
