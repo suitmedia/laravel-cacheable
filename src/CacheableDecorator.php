@@ -48,10 +48,10 @@ class CacheableDecorator
         $class = class_basename(get_class($object));
         $baseTags = (array) $this->repository->cacheTags();
 
-        $tags->push($class.':'.$object->getKey());
+        $tags->push($class . ':' . $object->getKey());
 
         foreach ($baseTags as $tag) {
-            $tags->push($tag.':'.$class.':'.$object->getKey());
+            $tags->push($tag . ':' . $class . ':' . $object->getKey());
         }
     }
 
@@ -74,6 +74,17 @@ class CacheableDecorator
         });
 
         return $tags->sort()->unique()->all();
+    }
+
+    /**
+     * Get the correct return value if the repository returns itself
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    private function getReturnValue($value)
+    {
+        return ($value === $this->repository) ? $this : $value;
     }
 
     /**
@@ -122,10 +133,10 @@ class CacheableDecorator
         }
 
         if (!$this->methodIsCacheable($method)) {
-            return call_user_func_array([$repository, $method], $args);
+            return $this->getReturnValue(call_user_func_array([$repository, $method], $args));
         }
 
-        return $this->service->retrieve(
+        return $this->getReturnValue($this->service->retrieve(
             $this->generateTags($args),
             $repository->cacheKey($method, $args),
             $repository->cacheDuration(),
@@ -134,6 +145,6 @@ class CacheableDecorator
 
                 return ($result !== null) ? $result : false;
             }
-        );
+        ));
     }
 }
