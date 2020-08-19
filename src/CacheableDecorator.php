@@ -48,10 +48,10 @@ class CacheableDecorator
         $class = class_basename(get_class($object));
         $baseTags = (array) $this->repository->cacheTags();
 
-        $tags->push($class . ':' . $object->getKey());
+        $tags->push($class.':'.$object->getKey());
 
         foreach ($baseTags as $tag) {
-            $tags->push($tag . ':' . $class . ':' . $object->getKey());
+            $tags->push($tag.':'.$class.':'.$object->getKey());
         }
     }
 
@@ -77,9 +77,10 @@ class CacheableDecorator
     }
 
     /**
-     * Get the correct return value if the repository returns itself
+     * Get the correct return value if the repository returns itself.
      *
      * @param mixed $value
+     *
      * @return mixed
      */
     private function getReturnValue($value)
