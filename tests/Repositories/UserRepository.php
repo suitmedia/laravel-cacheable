@@ -30,7 +30,7 @@ class UserRepository extends EloquentRepository
         //
     }
 
-    public function cacheKey($method, $args)
+    public function cacheKey($method, $args): string
     {
         return 'test-override-cache-key-method';
     }

@@ -36,14 +36,14 @@ class CacheableObserver
      *
      * @return void
      */
-    protected function flushCache(CacheableModel $model)
+    protected function flushCache(CacheableModel $model): void
     {
         $affectedFields = $this->dirtyFields->get(get_class($model));
         $tags = $model->cacheTags();
 
         event(new CacheableInvalidating($model, $tags, $affectedFields));
 
-        \Cacheable::flush($tags);
+        app(CacheableService::class)->flush($tags);
 
         event(new CacheableInvalidated($model, $tags, $affectedFields));
     }
@@ -55,7 +55,7 @@ class CacheableObserver
      *
      * @return void
      */
-    public function saved(CacheableModel $model)
+    public function saved(CacheableModel $model): void
     {
         $this->flushCache($model);
     }
@@ -67,7 +67,7 @@ class CacheableObserver
      *
      * @return void
      */
-    public function saving(CacheableModel $model)
+    public function saving(CacheableModel $model): void
     {
         $this->dirtyFields->put(get_class($model), $model->getDirty());
     }
@@ -79,7 +79,7 @@ class CacheableObserver
      *
      * @return void
      */
-    public function deleted(CacheableModel $model)
+    public function deleted(CacheableModel $model): void
     {
         $this->flushCache($model);
     }
@@ -91,7 +91,7 @@ class CacheableObserver
      *
      * @return void
      */
-    public function deleting(CacheableModel $model)
+    public function deleting(CacheableModel $model): void
     {
         $this->dirtyFields->put(get_class($model), ['deleted_at' => Carbon::now()]);
     }
@@ -103,7 +103,7 @@ class CacheableObserver
      *
      * @return void
      */
-    public function restored(CacheableModel $model)
+    public function restored(CacheableModel $model): void
     {
         $this->flushCache($model);
     }
@@ -115,7 +115,7 @@ class CacheableObserver
      *
      * @return void
      */
-    public function restoring(CacheableModel $model)
+    public function restoring(CacheableModel $model): void
     {
         $this->dirtyFields->put(get_class($model), ['deleted_at' => null]);
     }

@@ -3,10 +3,12 @@
 namespace Suitmedia\Cacheable;
 
 use Closure;
+use ErrorException;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Cache\TaggedCache;
+use Illuminate\Contracts\Cache\Store;
 use Suitmedia\Cacheable\Contracts\CacheableRepository;
 
 class CacheableService
@@ -14,7 +16,7 @@ class CacheableService
     /**
      * Cache manager object.
      *
-     * @var \Illuminate\Cache\TaggableStore
+     * @var \Illuminate\Contracts\Cache\Store
      */
     protected $cache;
 
@@ -29,7 +31,7 @@ class CacheableService
      * Class constructor.
      *
      * @param \Illuminate\Cache\CacheManager $cache
-     * @param \Illuminate\Cache\ArrayStore   $runtimeCache
+     * @param \Illuminate\Cache\ArrayStore $runtimeCache
      */
     public function __construct(CacheManager $cache, ArrayStore $runtimeCache)
     {
@@ -44,7 +46,7 @@ class CacheableService
      *
      * @return \Suitmedia\Cacheable\CacheableDecorator
      */
-    public function build($repository)
+    public function build($repository): CacheableDecorator
     {
         return $this->wrap($repository);
     }
@@ -55,8 +57,9 @@ class CacheableService
      * @param mixed $tags
      *
      * @return void
+     * @throws ErrorException
      */
-    public function flush($tags = null)
+    public function flush($tags = null): void
     {
         $this->taggedCache($this->cache, $tags)->flush();
         $this->taggedCache($this->runtimeCache, $tags)->flush();
@@ -78,12 +81,13 @@ class CacheableService
     /**
      * Retrieve cached items.
      *
-     * @param mixed   $tags
-     * @param string  $key
-     * @param int     $duration
+     * @param mixed $tags
+     * @param string $key
+     * @param int $duration
      * @param Closure $callable
      *
      * @return mixed
+     * @throws ErrorException
      */
     public function retrieve($tags, $key, $duration, Closure $callable)
     {
@@ -111,7 +115,7 @@ class CacheableService
      *
      * @return void
      */
-    protected function setRuntimeCache($tags, $key, $value)
+    protected function setRuntimeCache($tags, $key, $value): void
     {
         $this->runtimeCache->tags($tags)->forever($key, $value);
     }
@@ -119,13 +123,18 @@ class CacheableService
     /**
      * Get tagged cache object.
      *
-     * @param TaggableStore $cache
-     * @param mixed         $tags
+     * @param Store $cache
+     * @param mixed $tags
      *
      * @return \Illuminate\Cache\TaggedCache|TaggableStore
+     * @throws ErrorException
      */
-    protected function taggedCache(TaggableStore $cache, $tags)
+    protected function taggedCache(Store $cache, $tags)
     {
+        if (!($cache instanceof TaggableStore)) {
+            throw new ErrorException('Laravel Cacheable requires taggable cache store.');
+        }
+
         return !empty($tags) ? $cache->tags($tags) : $cache;
     }
 
@@ -137,7 +146,7 @@ class CacheableService
      *
      * @return \Suitmedia\Cacheable\CacheableDecorator
      */
-    public function wrap($repository)
+    public function wrap($repository): CacheableDecorator
     {
         if (is_string($repository)) {
             $repository = \App::make($repository);
@@ -153,7 +162,7 @@ class CacheableService
      *
      * @return \Suitmedia\Cacheable\CacheableDecorator
      */
-    protected function wrapWithDecorator(CacheableRepository $repository)
+    protected function wrapWithDecorator(CacheableRepository $repository): CacheableDecorator
     {
         return new CacheableDecorator($this, $repository);
     }

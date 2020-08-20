@@ -1,0 +1,32 @@
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
+    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - vendor/ekino/phpstan-banned-code/extension.neon
+
+parameters:
+    level: max
+    checkMissingIterableValueType: false
+    paths:
+        - src
+    ignoreErrors:
+        - '#Parameter \#1 \$function of function call_user_func_array expects callable\(\): mixed, array\(Suitmedia\\Cacheable\\Contracts\\CacheableRepository, string\) given.#'
+        - '#Call to an undefined method Illuminate\\Cache\\TaggableStore|Illuminate\\Cache\\TaggedCache::remember\(\).#'
+    banned_code:
+        nodes:
+            - type: Expr_FuncCall
+              functions:
+                  - dd
+                  - debug_backtrace
+                  - die
+                  - dump
+                  - echo
+                  - eval
+                  - exec
+                  - exit
+                  - passthru
+                  - phpinfo
+                  - print_r
+                  - proc_open
+                  - shell_exec
+                  - system
+                  - var_dump
