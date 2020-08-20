@@ -31,7 +31,7 @@ class CacheableService
      * Class constructor.
      *
      * @param \Illuminate\Cache\CacheManager $cache
-     * @param \Illuminate\Cache\ArrayStore $runtimeCache
+     * @param \Illuminate\Cache\ArrayStore   $runtimeCache
      */
     public function __construct(CacheManager $cache, ArrayStore $runtimeCache)
     {
@@ -56,8 +56,9 @@ class CacheableService
      *
      * @param mixed $tags
      *
-     * @return void
      * @throws ErrorException
+     *
+     * @return void
      */
     public function flush($tags = null): void
     {
@@ -81,13 +82,14 @@ class CacheableService
     /**
      * Retrieve cached items.
      *
-     * @param mixed $tags
-     * @param string $key
-     * @param int $duration
+     * @param mixed   $tags
+     * @param string  $key
+     * @param int     $duration
      * @param Closure $callable
      *
-     * @return mixed
      * @throws ErrorException
+     *
+     * @return mixed
      */
     public function retrieve($tags, $key, $duration, Closure $callable)
     {
@@ -126,8 +128,9 @@ class CacheableService
      * @param Store $cache
      * @param mixed $tags
      *
-     * @return \Illuminate\Cache\TaggedCache|TaggableStore
      * @throws ErrorException
+     *
+     * @return \Illuminate\Cache\TaggedCache|TaggableStore
      */
     protected function taggedCache(Store $cache, $tags)
     {
