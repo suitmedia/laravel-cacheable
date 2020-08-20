@@ -43,7 +43,7 @@ class CacheableDecorator
      *
      * @return void
      */
-    private function generateCustomTags(Collection $tags, Model $object)
+    private function generateCustomTags(Collection $tags, Model $object): void
     {
         $class = class_basename(get_class($object));
         $baseTags = (array) $this->repository->cacheTags();
@@ -62,7 +62,7 @@ class CacheableDecorator
      *
      * @return array
      */
-    private function generateTags($args)
+    private function generateTags($args): array
     {
         $args = collect($args);
         $tags = collect($this->repository->cacheTags());
@@ -95,7 +95,7 @@ class CacheableDecorator
      *
      * @return bool
      */
-    private function isCustomTagInstance($object)
+    private function isCustomTagInstance($object): bool
     {
         $customTagInstances = (array) config('cacheable.customTags');
 
@@ -109,7 +109,7 @@ class CacheableDecorator
      *
      * @return bool
      */
-    private function methodIsCacheable($method)
+    private function methodIsCacheable($method): bool
     {
         return !in_array($method, $this->repository->cacheExcept(), true);
     }
@@ -141,10 +141,10 @@ class CacheableDecorator
             $this->generateTags($args),
             $repository->cacheKey($method, $args),
             $repository->cacheDuration(),
-            function () use ($repository, $method, $args) {
+            static function () use ($repository, $method, $args) {
                 $result = call_user_func_array([$repository, $method], $args);
 
-                return ($result !== null) ? $result : false;
+                return $result ?? false;
             }
         ));
     }

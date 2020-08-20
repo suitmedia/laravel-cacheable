@@ -35,7 +35,7 @@ class MethodNotFoundException extends BadMethodCallException
      *
      * @return string
      */
-    public function getRepository()
+    public function getRepository(): string
     {
         return $this->repository;
     }
@@ -49,7 +49,7 @@ class MethodNotFoundException extends BadMethodCallException
      *
      * @return \Suitmedia\Cacheable\Exceptions\MethodNotFoundException
      */
-    public function setRepositoryMethod($repository, $method)
+    public function setRepositoryMethod($repository, $method): self
     {
         $this->repository = $repository;
         $this->method = $method;

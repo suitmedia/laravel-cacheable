@@ -33,7 +33,7 @@ abstract class EloquentRepository implements CacheableRepository
      *
      * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
-    public function model()
+    public function model(): CacheableModel
     {
         return $this->model;
     }

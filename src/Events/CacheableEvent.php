@@ -49,7 +49,7 @@ abstract class CacheableEvent
      *
      * @return array
      */
-    public function affectedFields()
+    public function affectedFields(): array
     {
         return $this->affectedFields;
     }
@@ -59,7 +59,7 @@ abstract class CacheableEvent
      *
      * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
-    public function model()
+    public function model(): CacheableModel
     {
         return $this->model;
     }

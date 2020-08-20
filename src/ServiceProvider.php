@@ -12,7 +12,7 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             realpath(dirname(__DIR__).'/config/cacheable.php') => config_path('cacheable.php'),
@@ -24,9 +24,12 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->mergeConfigFrom(realpath(dirname(__DIR__).'/config/cacheable.php'), 'cacheable');
+        $configFile = realpath(dirname(__DIR__).'/config/cacheable.php');
+        if ($configFile !== false) {
+            $this->mergeConfigFrom($configFile, 'cacheable');
+        }
 
         $this->registerSingletons();
     }
@@ -36,7 +39,7 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function registerSingletons()
+    public function registerSingletons(): void
     {
         $this->app->singleton(CacheableService::class, function () {
             return new CacheableService(app('cache'), new ArrayStore());

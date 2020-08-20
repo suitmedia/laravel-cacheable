@@ -12,7 +12,7 @@ trait CacheableTrait
      *
      * @return void
      */
-    public static function bootCacheableTrait()
+    public static function bootCacheableTrait(): void
     {
         static::observe(app(CacheableObserver::class));
     }

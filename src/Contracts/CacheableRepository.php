@@ -10,7 +10,7 @@ interface CacheableRepository
      *
      * @return int
      */
-    public function cacheDuration();
+    public function cacheDuration(): int;
 
     /**
      * Return an array of method names which
@@ -18,7 +18,7 @@ interface CacheableRepository
      *
      * @return array
      */
-    public function cacheExcept();
+    public function cacheExcept(): array;
 
     /**
      * Generate cache key.
@@ -28,7 +28,7 @@ interface CacheableRepository
      *
      * @return string
      */
-    public function cacheKey($method, $args);
+    public function cacheKey($method, $args): string;
 
     /**
      * Return the cache tags which would
@@ -44,5 +44,5 @@ interface CacheableRepository
      *
      * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
-    public function model();
+    public function model(): CacheableModel;
 }

@@ -3,6 +3,7 @@
 namespace Suitmedia\Cacheable\Traits\Repository;
 
 use Illuminate\Support\Str;
+use Suitmedia\Cacheable\Contracts\CacheableModel;
 
 trait CacheableTrait
 {
@@ -11,7 +12,7 @@ trait CacheableTrait
      *
      * @return string
      */
-    protected function baseClassName()
+    protected function baseClassName(): string
     {
         $class = class_basename(get_class($this));
 
@@ -28,7 +29,7 @@ trait CacheableTrait
      *
      * @return int
      */
-    public function cacheDuration()
+    public function cacheDuration(): int
     {
         if (property_exists($this, 'cacheDuration')) {
             return (int) static::$cacheDuration;
@@ -43,7 +44,7 @@ trait CacheableTrait
      *
      * @return array
      */
-    public function cacheExcept()
+    public function cacheExcept(): array
     {
         $result = (array) config('cacheable.except');
 
@@ -62,7 +63,7 @@ trait CacheableTrait
      *
      * @return string
      */
-    public function cacheKey($method, $args)
+    public function cacheKey($method, $args): string
     {
         $class = $this->baseClassName();
         $args = sha1(serialize($args));
@@ -91,5 +92,5 @@ trait CacheableTrait
      *
      * @return \Suitmedia\Cacheable\Contracts\CacheableModel
      */
-    abstract public function model();
+    abstract public function model(): CacheableModel;
 }
