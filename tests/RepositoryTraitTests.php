@@ -2,8 +2,8 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
-use Suitmedia\Cacheable\Tests\Repositories\UserRepository;
-use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
+use Suitmedia\Cacheable\Tests\Supports\Repositories\UserRepository;
+use Suitmedia\Cacheable\Tests\Supports\Repositories\VideoRepository;
 
 class RepositoryTraitTests extends TestCase
 {

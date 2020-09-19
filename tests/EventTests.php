@@ -4,7 +4,7 @@ namespace Suitmedia\Cacheable\Tests;
 
 use Suitmedia\Cacheable\Events\CacheableInvalidated;
 use Suitmedia\Cacheable\Events\CacheableInvalidating;
-use Suitmedia\Cacheable\Tests\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
 class EventTests extends TestCase
 {

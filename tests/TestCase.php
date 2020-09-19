@@ -2,9 +2,10 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as BaseTest;
-use Suitmedia\Cacheable\Tests\Models\User;
-use Suitmedia\Cacheable\Tests\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Models\User;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
 abstract class TestCase extends BaseTest
 {
@@ -28,7 +29,7 @@ abstract class TestCase extends BaseTest
      * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('cache.default', 'array');
         $app['config']->set('database.default', 'testbench');
@@ -46,7 +47,7 @@ abstract class TestCase extends BaseTest
      * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
-    protected function getPackageAliases($app)
+    protected function getPackageAliases()
     {
         return [
             'Cache' => \Illuminate\Support\Facades\Cache::class,
@@ -91,37 +92,11 @@ abstract class TestCase extends BaseTest
      * to perform any tests.
      *
      * @param  string $migrationPath
-     * @param  string $factoryPath
      * @return void
      */
-    protected function prepareDatabase($migrationPath, $factoryPath = null)
+    protected function prepareDatabase(string $migrationPath)
     {
         $this->loadMigrationsFrom($migrationPath);
-
-        if (!$factoryPath) {
-            return;
-        }
-
-        if (method_exists($this, 'withFactories')) {
-            $this->withFactories($factoryPath);
-        } else {
-            $this->app->make(ModelFactory::class)->load($factoryPath);
-        }
-    }
-
-    /**
-     * Prepare to get an exception in a test
-     *
-     * @param  mixed $exception
-     * @return void
-     */
-    protected function prepareException($exception)
-    {
-        if (method_exists($this, 'expectException')) {
-            $this->expectException($exception);
-        } else {
-            $this->setExpectedException($exception);
-        }
     }
 
     /**
@@ -134,13 +109,16 @@ abstract class TestCase extends BaseTest
         parent::setUp();
 
         $this->prepareDatabase(
-            realpath(__DIR__ . '/database/migrations'),
-            realpath(__DIR__ . '/database/factories')
+            realpath(__DIR__ . '/Supports/Migrations')
         );
 
-        $this->user = factory(User::class)->create();
-        $this->otherUser = factory(User::class)->create();
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';
+        });
 
-        factory(Video::class, 20)->create();
+        $this->user = User::factory()->create();
+        $this->otherUser = User::factory()->create();
+
+        Video::factory(20)->create();
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Suitmedia\Cacheable\Tests\Repositories;
+namespace Suitmedia\Cacheable\Tests\Supports\Repositories;
 
-use Suitmedia\Cacheable\Tests\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
 
 class VideoRepository extends EloquentRepository

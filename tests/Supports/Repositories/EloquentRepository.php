@@ -1,6 +1,6 @@
 <?php
 
-namespace Suitmedia\Cacheable\Tests\Repositories;
+namespace Suitmedia\Cacheable\Tests\Supports\Repositories;
 
 use Suitmedia\Cacheable\Contracts\CacheableModel;
 use Suitmedia\Cacheable\Contracts\CacheableRepository;

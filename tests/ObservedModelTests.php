@@ -2,7 +2,7 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
-use Suitmedia\Cacheable\Tests\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
 class ObservedModelTests extends TestCase
 {
