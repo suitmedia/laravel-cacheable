@@ -1,9 +1,8 @@
 <?php
 
-namespace Suitmedia\Cacheable\Tests\Repositories;
+namespace Suitmedia\Cacheable\Tests\Supports\Repositories;
 
-use Suitmedia\Cacheable\Tests\Models\User;
-use Suitmedia\Cacheable\Traits\Repository\CacheableTrait;
+use Suitmedia\Cacheable\Tests\Supports\Models\User;
 
 class UserRepository extends EloquentRepository
 {

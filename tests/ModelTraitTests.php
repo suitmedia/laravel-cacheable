@@ -2,8 +2,8 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
-use Suitmedia\Cacheable\Tests\Models\User;
-use Suitmedia\Cacheable\Tests\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Models\User;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
 class ModelTraitTests extends TestCase
 {

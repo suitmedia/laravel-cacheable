@@ -3,8 +3,8 @@
 namespace Suitmedia\Cacheable\Tests;
 
 use Illuminate\Support\Str;
-use Suitmedia\Cacheable\Tests\Models\Video;
-use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Repositories\VideoRepository;
 use Suitmedia\Cacheable\CacheableDecorator;
 use Suitmedia\Cacheable\CacheableService;
 use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
@@ -155,7 +155,7 @@ class DecoratorTests extends TestCase
     /** @test */
     public function return_exception_while_trying_to_access_undefined_method()
     {
-        $this->prepareException(MethodNotFoundException::class);
+        $this->expectException(MethodNotFoundException::class);
 
         $this->decorator->getPhoneNumber();
     }

@@ -3,9 +3,9 @@
 namespace Suitmedia\Cacheable\Tests;
 
 use Illuminate\Cache\ArrayStore;
-use Suitmedia\Cacheable\Tests\Models\User;
-use Suitmedia\Cacheable\Tests\Models\Video;
-use Suitmedia\Cacheable\Tests\Repositories\VideoRepository;
+use Suitmedia\Cacheable\Tests\Supports\Models\User;
+use Suitmedia\Cacheable\Tests\Supports\Models\Video;
+use Suitmedia\Cacheable\Tests\Supports\Repositories\VideoRepository;
 use Suitmedia\Cacheable\CacheableDecorator;
 use Suitmedia\Cacheable\CacheableService;
 
