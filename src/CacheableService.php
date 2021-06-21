@@ -7,7 +7,6 @@ use ErrorException;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\TaggableStore;
-use Illuminate\Cache\TaggedCache;
 use Illuminate\Contracts\Cache\Store;
 use Suitmedia\Cacheable\Contracts\CacheableRepository;
 
