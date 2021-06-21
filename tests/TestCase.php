@@ -42,12 +42,13 @@ abstract class TestCase extends BaseTest
     }
 
     /**
-     * Define package aliases
+     * Get package aliases.
      *
      * @param  \Illuminate\Foundation\Application  $app
+     *
      * @return array
      */
-    protected function getPackageAliases()
+    protected function getPackageAliases($app)
     {
         return [
             'Cache' => \Illuminate\Support\Facades\Cache::class,
