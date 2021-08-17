@@ -233,4 +233,38 @@ class DecoratorTests extends TestCase
 
         $this->assertNull($result);
     }
+
+    /** @test */
+    public function execute_the_method_twice_if_it_got_flushed()
+    {
+        $tags = 'Video';
+
+        $this->mockedRepository->shouldReceive('getAllVideos')
+            ->times(2)
+            ->andReturn(null);
+        $this->mockedRepository->shouldReceive('cacheTags')
+            ->times(2)
+            ->andReturn($tags);
+        $this->mockedRepository->shouldReceive('cacheDuration')
+            ->times(2)
+            ->andReturn(120);
+        $this->mockedRepository->shouldReceive('cacheExcept')
+            ->times(2)
+            ->andReturn(['create', 'update', 'delete']);
+        $this->mockedRepository->shouldReceive('cacheKey')
+            ->times(2)
+            ->andReturn('cache-key-123');
+
+        $service = app(CacheableService::class);
+
+        $decorator = new CacheableDecorator($service, $this->mockedRepository);
+
+        $decorator->getAllVideos();
+
+        $service->flush($tags);
+
+        $result = $decorator->getAllVideos();
+
+        $this->assertNull($result);
+    }
 }
