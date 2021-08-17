@@ -207,7 +207,7 @@ class DecoratorTests extends TestCase
     }
 
     /** @test */
-    public function convert_repository_method_return_value_from_null_to_false()
+    public function execute_the_method_once_even_if_it_returns_null()
     {
         $this->mockedRepository->shouldReceive('getAllVideos')
             ->times(1)
@@ -231,6 +231,6 @@ class DecoratorTests extends TestCase
 
         $result = $decorator->getAllVideos();
 
-        $this->assertFalse($result);
+        $this->assertNull($result);
     }
 }
