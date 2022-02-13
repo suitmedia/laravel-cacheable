@@ -64,8 +64,8 @@ class CacheableDecorator
      */
     private function generateTags($args): array
     {
-        $args = collect($args);
-        $tags = collect($this->repository->cacheTags());
+        $args = new Collection((array) $args);
+        $tags = new Collection($this->repository->cacheTags());
 
         $args->each(function ($object) use ($tags) {
             if ($this->isCustomTagInstance($object)) {
@@ -134,6 +134,7 @@ class CacheableDecorator
         }
 
         if (!$this->methodIsCacheable($method)) {
+            /* @phpstan-ignore-next-line */
             return $this->getReturnValue(call_user_func_array([$repository, $method], $args));
         }
 
@@ -142,6 +143,7 @@ class CacheableDecorator
             $repository->cacheKey($method, $args),
             $repository->cacheDuration(),
             static function () use ($repository, $method, $args) {
+                /* @phpstan-ignore-next-line */
                 $result = call_user_func_array([$repository, $method], $args);
 
                 return $result ?? false;

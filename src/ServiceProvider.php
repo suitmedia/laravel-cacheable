@@ -3,6 +3,7 @@
 namespace Suitmedia\Cacheable;
 
 use Illuminate\Cache\ArrayStore;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class ServiceProvider extends Provider
@@ -46,7 +47,7 @@ class ServiceProvider extends Provider
         });
 
         $this->app->singleton(CacheableObserver::class, function () {
-            return new CacheableObserver(collect());
+            return new CacheableObserver(new Collection());
         });
     }
 }

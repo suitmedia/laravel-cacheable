@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.4]
+        php: [8.0]
     steps:
       - uses: actions/checkout@v1
       - name: Cache composer dependencies
@@ -35,7 +35,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
       - name: Install composer dependencies
         run: composer install --prefer-dist
@@ -50,14 +50,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.3, 7.4, 8.0]
+        php: [7.4, 8.1]
     steps:
       - uses: actions/checkout@v1
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
       - name: Remove some dev dependencies
         run: composer remove "ekino/phpstan-banned-code" "nunomaduro/larastan" "phpmd/phpmd" "phpstan/phpstan-deprecation-rules" "sebastian/phpcpd" --dev --no-update
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ 7.4 ]
+        php: [ 8.0 ]
     steps:
       - uses: actions/checkout@v1
       - name: Cache composer dependencies
@@ -88,7 +88,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
       - name: Install composer dependencies
         run: composer install --prefer-dist

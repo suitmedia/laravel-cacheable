@@ -4,12 +4,12 @@ includes:
     - vendor/ekino/phpstan-banned-code/extension.neon
 
 parameters:
-    level: max
+    level: 8
     checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
     paths:
         - src
     ignoreErrors:
-        - '#Parameter \#1 \$function of function call_user_func_array expects callable\(\): mixed, array\(Suitmedia\\Cacheable\\Contracts\\CacheableRepository, string\) given.#'
         - '#Call to an undefined method Illuminate\\Cache\\TaggableStore|Illuminate\\Cache\\TaggedCache::remember\(\).#'
     banned_code:
         nodes:
