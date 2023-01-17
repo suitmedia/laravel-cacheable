@@ -2,6 +2,7 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use Illuminate\Support\Facades\Event;
 use Suitmedia\Cacheable\Events\CacheableInvalidated;
 use Suitmedia\Cacheable\Events\CacheableInvalidating;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
@@ -11,7 +12,7 @@ class EventTests extends TestCase
     /** @test */
     public function fire_cacheable_events_as_expected()
     {
-        $this->expectsEvents([
+        Event::fake([
             CacheableInvalidating::class,
             CacheableInvalidated::class,
         ]);
@@ -20,5 +21,8 @@ class EventTests extends TestCase
             'title' => 'Ed Sheeran - Perfect',
             'url' => 'https://www.youtube.com/watch?v=2Vv-BfVoq4g'
         ]);
+
+        Event::assertDispatched(CacheableInvalidating::class);
+        Event::assertDispatched(CacheableInvalidated::class);
     }
 }
