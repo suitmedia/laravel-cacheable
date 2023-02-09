@@ -9,6 +9,8 @@ use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
 
 class CacheableDecorator
 {
+    const NULL_VALUE = 'NULL_VALUE';
+
     /**
      * Cacheable Repository.
      *
@@ -85,7 +87,11 @@ class CacheableDecorator
      */
     private function getReturnValue($value)
     {
-        return ($value === $this->repository) ? $this : $value;
+        if ($value === $this->repository) {
+            return $this;
+        }
+
+        return ($value === CacheableDecorator::NULL_VALUE) ? null : $value;
     }
 
     /**
@@ -146,7 +152,7 @@ class CacheableDecorator
                 /* @phpstan-ignore-next-line */
                 $result = call_user_func_array([$repository, $method], $args);
 
-                return $result ?? false;
+                return $result ?? CacheableDecorator::NULL_VALUE;
             }
         ));
     }
