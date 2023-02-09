@@ -9,7 +9,7 @@ use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
 
 class CacheableDecorator
 {
-    const CACHEABLE_DECORATOR_NULL_VALUE = 'CACHEABLE_DECORATOR_NULL_VALUE';
+    const NULL_VALUE = 'NULL_VALUE';
 
     /**
      * Cacheable Repository.
@@ -91,7 +91,7 @@ class CacheableDecorator
             return $this;
         }
 
-        return ($value === CacheableDecorator::CACHEABLE_DECORATOR_NULL_VALUE) ? null : $value;
+        return ($value === CacheableDecorator::NULL_VALUE) ? null : $value;
     }
 
     /**
@@ -152,7 +152,7 @@ class CacheableDecorator
                 /* @phpstan-ignore-next-line */
                 $result = call_user_func_array([$repository, $method], $args);
 
-                return $result ?? CacheableDecorator::CACHEABLE_DECORATOR_NULL_VALUE;
+                return $result ?? CacheableDecorator::NULL_VALUE;
             }
         ));
     }
