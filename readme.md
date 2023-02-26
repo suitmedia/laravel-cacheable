@@ -31,8 +31,8 @@ This package will help you to make your repositories cacheable without worrying 
  6.x               | 1.5.x
  7.x               | 1.6.x
  8.x               | 1.7.x
- 9.x               | 1.9.x
- 10.x              | 1.10.x
+ 9.x               | 1.9.x - 1.10.x
+ 10.x              | 1.11.x
 
 ## Requirements
 
