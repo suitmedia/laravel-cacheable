@@ -5,16 +5,16 @@ on:
     paths-ignore: ['*.md']
   pull_request:
     paths-ignore: [ '*.md' ]
-    branches: [ master ]
+    branches: [ main, master ]
 
 jobs:
   analysis:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.0]
+        php: [8.2]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -33,21 +33,18 @@ jobs:
             php-${{ matrix.php }}-build-
             php-${{ matrix.php }}-
       - name: Install composer dependencies
-        run: composer install --prefer-dist
-      - name: Run phpstan analysis
-        run: composer phpstan-analysis
-      - name: Run phpmd analysis
-        run: composer phpmd-analysis
-      - name: Run phpcpd analysis
-        run: vendor/bin/phpcpd --min-lines=3 --min-tokens=36 src/
-  phpunit:
+        run: composer install --no-interaction --prefer-dist
+      - name: Run static analysis
+        run: composer analyse
+  test:
+    name: Test (PHP ${{ matrix.php }})
     needs: [analysis]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.4, 8.1]
+        php: [7.4, 8.0, 8.1]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -59,7 +56,7 @@ jobs:
       - name: Cache composer dependencies
         uses: actions/cache@v2
         env:
-          cache-name: laravel-cacheable-phpunit
+          cache-name: laravel-cacheable-test
         with:
           path: ~/.composer
           key: php-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.json') }}
@@ -68,27 +65,27 @@ jobs:
             php-${{ matrix.php }}-build-
             php-${{ matrix.php }}-
       - name: Install composer dependencies
-        run: composer install --prefer-dist
+        run: composer install --no-interaction --prefer-dist
       - name: Run the test suite
-        run: phpdbg -qrr -dmemory_limit=3G vendor/bin/phpunit
-  phpunit-cov:
+        run: vendor/bin/phpunit
+  test-coverage:
+    name: Test (PHP ${{ matrix.php }})
     needs: [ analysis ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ 8.0 ]
+        php: [ 8.2 ]
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
-          coverage: none
       - name: Cache composer dependencies
         uses: actions/cache@v2
         env:
-          cache-name: laravel-cacheable-phpunit-cov
+          cache-name: laravel-cacheable-test
         with:
           path: ~/.composer
           key: php-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.json') }}
@@ -97,9 +94,9 @@ jobs:
             php-${{ matrix.php }}-build-
             php-${{ matrix.php }}-
       - name: Install composer dependencies
-        run: composer install --prefer-dist
+        run: composer install --no-interaction --prefer-dist
       - name: Run the Coverage test suite
-        run: phpdbg -qrr -dmemory_limit=3G vendor/bin/phpunit --coverage-clover=clover.xml
+        run: vendor/bin/phpunit --coverage-clover=clover.xml
       - name: Upload test coverage report to codecov.io
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
