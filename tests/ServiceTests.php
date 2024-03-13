@@ -3,6 +3,7 @@
 namespace Suitmedia\Cacheable\Tests;
 
 use Illuminate\Cache\ArrayStore;
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Tests\Supports\Models\User;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 use Suitmedia\Cacheable\Tests\Supports\Repositories\VideoRepository;
@@ -29,7 +30,7 @@ class ServiceTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -37,7 +38,7 @@ class ServiceTests extends TestCase
         $this->service = new CacheableService(app('cache'), $this->runtimeCache);
     }
 
-    /** @test */
+    #[Test]
     public function build_decorator_object_by_class_name()
     {
         $decorator = $this->service->build(VideoRepository::class);
@@ -45,7 +46,7 @@ class ServiceTests extends TestCase
         $this->assertInstanceOf(CacheableDecorator::class, $decorator);
     }
 
-    /** @test */
+    #[Test]
     public function build_decorator_object_by_repository_object()
     {
         $repository = new VideoRepository(new Video);
@@ -54,7 +55,7 @@ class ServiceTests extends TestCase
         $this->assertInstanceOf(CacheableDecorator::class, $decorator);
     }
 
-    /** @test */
+    #[Test]
     public function flush_cache()
     {
         // Set runtime cache
@@ -75,7 +76,7 @@ class ServiceTests extends TestCase
         $this->assertEquals(null, $data);
     }
 
-    /** @test */
+    #[Test]
     public function runtime_cache_getter_and_setter()
     {
         // Set runtime cache
@@ -94,7 +95,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('value', $data);
     }
 
-    /** @test */
+    #[Test]
     public function retrieve_data_from_runtime_cache()
     {
         $counter = 0;
@@ -108,7 +109,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('Data 1', $data);
     }
 
-    /** @test */
+    #[Test]
     public function retrieve_data_from_cache_with_duration()
     {
         $counter = 0;
@@ -125,7 +126,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('Data 1', $data);
     }
 
-    /** @test */
+    #[Test]
     public function retrieve_data_from_cache_without_duration()
     {
         $counter = 0;
@@ -142,7 +143,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('Data 1', $data);
     }
 
-    /** @test */
+    #[Test]
     public function wrap_repository_with_decorator_object()
     {
         $repository = new VideoRepository(new Video);
@@ -155,7 +156,7 @@ class ServiceTests extends TestCase
         $this->assertInstanceOf(CacheableDecorator::class, $decorator);
     }
 
-    /** @test */
+    #[Test]
     public function execute_closure_when_the_tagged_cache_are_flushed()
     {
         $counter = 0;
@@ -172,7 +173,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('Data 2', $data);
     }
 
-    /** @test */
+    #[Test]
     public function execute_closure_when_all_cache_are_flushed()
     {
         $counter = 0;

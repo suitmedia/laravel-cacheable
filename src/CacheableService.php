@@ -8,6 +8,7 @@ use Illuminate\Cache\ArrayStore;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\App;
 use Suitmedia\Cacheable\Contracts\CacheableRepository;
 
 class CacheableService
@@ -151,7 +152,7 @@ class CacheableService
     public function wrap($repository): CacheableDecorator
     {
         if (is_string($repository)) {
-            $repository = \App::make($repository);
+            $repository = App::make($repository);
         }
 
         return $this->wrapWithDecorator($repository);

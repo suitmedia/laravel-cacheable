@@ -2,36 +2,38 @@ name: Build
 
 on:
   push:
-    paths-ignore: ['*.md']
+    paths-ignore: ["*.md"]
   pull_request:
-    paths-ignore: [ '*.md' ]
-    branches: [ main, master ]
+    paths-ignore: ["*.md"]
+    branches: [main]
 
 jobs:
   analysis:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.2]
+        php: [8.3]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, exif, iconv
           coverage: none
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: laravel-cacheable-analysis
         with:
-          path: ~/.composer
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: php-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             php-${{ matrix.php }}-build-${{ env.cache-name }}-
-            php-${{ matrix.php }}-build-
-            php-${{ matrix.php }}-
       - name: Install composer dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Run static analysis
@@ -42,57 +44,63 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: [8.0, 8.1, 8.2]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, exif, iconv
           coverage: none
       - name: Remove some dev dependencies
-        run: composer remove "ekino/phpstan-banned-code" "nunomaduro/larastan" "phpmd/phpmd" "phpstan/phpstan-deprecation-rules" "sebastian/phpcpd" --dev --no-update
+        run: composer remove "ekino/phpstan-banned-code" "larastan/larastan" "phpmd/phpmd" "phpstan/phpstan-deprecation-rules" --dev --no-update
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: laravel-cacheable-test
         with:
-          path: ~/.composer
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: php-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             php-${{ matrix.php }}-build-${{ env.cache-name }}-
-            php-${{ matrix.php }}-build-
-            php-${{ matrix.php }}-
       - name: Install composer dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Run the test suite
         run: vendor/bin/phpunit
   test-coverage:
     name: Test (PHP ${{ matrix.php }})
-    needs: [ analysis ]
+    needs: [analysis]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ 8.2 ]
+        php: [8.3]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, exif, iconv
+      - name: Remove some dev dependencies
+        run: composer remove "ekino/phpstan-banned-code" "larastan/larastan" "phpmd/phpmd" "phpstan/phpstan-deprecation-rules" --dev --no-update
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: laravel-cacheable-test
         with:
-          path: ~/.composer
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: php-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             php-${{ matrix.php }}-build-${{ env.cache-name }}-
-            php-${{ matrix.php }}-build-
-            php-${{ matrix.php }}-
       - name: Install composer dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Run the Coverage test suite

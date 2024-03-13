@@ -11,17 +11,17 @@ class VideoRepository extends EloquentRepository
 
     public function __construct(Video $model)
     {
-        parent::__construct($model);    
+        parent::__construct($model);
     }
 
     public function getAllVideos()
     {
-        return $this->model->get();
+        return $this->model()->get();
     }
 
     public function getVideo($videoId)
     {
-        return $this->model->find($videoId);
+        return $this->model()->find($videoId);
     }
 
     public function update($params)

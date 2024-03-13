@@ -2,6 +2,7 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Exceptions\MethodNotFoundException;
 
 class MethodNotFoundExceptionTests extends TestCase
@@ -18,13 +19,13 @@ class MethodNotFoundExceptionTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         $this->exception = (new MethodNotFoundException())
             ->setRepositoryMethod('VideoRepository', 'getAllVideos');
     }
 
-    /** @test */
+    #[Test]
     public function get_repository_class_name()
     {
         $className = $this->exception->getRepository();
@@ -32,7 +33,7 @@ class MethodNotFoundExceptionTests extends TestCase
         $this->assertEquals('VideoRepository', $className);
     }
 
-    /** @test */
+    #[Test]
     public function get_repository_method_name()
     {
         $methodName = $this->exception->getMethod();

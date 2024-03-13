@@ -2,6 +2,7 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Events\CacheableInvalidating;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
@@ -26,10 +27,10 @@ class CacheableEventTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->model = new Video;
         $this->event = new CacheableInvalidating(
             $this->model,
@@ -38,7 +39,7 @@ class CacheableEventTests extends TestCase
         );
     }
 
-    /** @test */
+    #[Test]
     public function return_affected_fields_correctly()
     {
         $actual = $this->event->affectedFields();
@@ -47,7 +48,7 @@ class CacheableEventTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function return_affected_model_correctly()
     {
         $actual = $this->event->model();
@@ -55,7 +56,7 @@ class CacheableEventTests extends TestCase
         $this->assertEquals($this->model, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function return_invalidate_tags_correctly()
     {
         $actual = $this->event->tags();

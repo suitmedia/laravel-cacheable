@@ -3,6 +3,7 @@
 namespace Suitmedia\Cacheable\Tests;
 
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 use Suitmedia\Cacheable\Tests\Supports\Repositories\VideoRepository;
 use Suitmedia\Cacheable\CacheableDecorator;
@@ -44,7 +45,7 @@ class DecoratorTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -55,7 +56,7 @@ class DecoratorTests extends TestCase
         $this->mockedRepository = \Mockery::mock(VideoRepository::class);
     }
 
-    /** @test */
+    #[Test]
     public function determine_if_the_method_argument_is_a_custom_tag_instance()
     {
         $this->assertFalse($this->invokeMethod(
@@ -77,7 +78,7 @@ class DecoratorTests extends TestCase
         ));
     }
 
-    /** @test */
+    #[Test]
     public function generate_the_custom_tags()
     {
         $tags = collect();
@@ -96,7 +97,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals($expected, $tags->all());
     }
 
-    /** @test */
+    #[Test]
     public function generate_all_of_the_cache_tags_without_custom_tags()
     {
         $tags = $this->invokeMethod(
@@ -107,7 +108,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals(['Video', 'VideoAlbum'], $tags);
     }
 
-    /** @test */
+    #[Test]
     public function generate_all_of_the_cache_tags_with_custom_tags()
     {
         $actual = $this->invokeMethod(
@@ -130,7 +131,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function recognize_any_method_that_should_be_cached()
     {
         $cacheable = $this->invokeMethod(
@@ -141,7 +142,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals(true, $cacheable);
     }
 
-    /** @test */
+    #[Test]
     public function recognize_any_method_that_should_not_be_cached()
     {
         $cacheable = $this->invokeMethod(
@@ -152,7 +153,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals(false, $cacheable);
     }
 
-    /** @test */
+    #[Test]
     public function return_exception_while_trying_to_access_undefined_method()
     {
         $this->expectException(MethodNotFoundException::class);
@@ -160,7 +161,7 @@ class DecoratorTests extends TestCase
         $this->decorator->getPhoneNumber();
     }
 
-    /** @test */
+    #[Test]
     public function execute_the_method_directly_if_it_is_not_cacheable()
     {
         $this->mockedRepository->shouldReceive('update')
@@ -178,7 +179,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals('Video Updated', $result);
     }
 
-    /** @test */
+    #[Test]
     public function execute_the_method_once_if_it_is_cacheable()
     {
         $this->mockedRepository->shouldReceive('getAllVideos')
@@ -206,7 +207,7 @@ class DecoratorTests extends TestCase
         $this->assertEquals('All Videos', $result);
     }
 
-    /** @test */
+    #[Test]
     public function execute_the_method_once_even_if_it_returns_null()
     {
         $this->mockedRepository->shouldReceive('getAllVideos')
@@ -234,7 +235,7 @@ class DecoratorTests extends TestCase
         $this->assertNull($result);
     }
 
-    /** @test */
+    #[Test]
     public function execute_the_method_twice_if_it_got_flushed()
     {
         $tags = 'Video';

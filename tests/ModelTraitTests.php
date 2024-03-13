@@ -2,6 +2,7 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Tests\Supports\Models\User;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
@@ -26,7 +27,7 @@ class ModelTraitTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -34,7 +35,7 @@ class ModelTraitTests extends TestCase
         $this->videoModel = new Video;
     }
 
-    /** @test */
+    #[Test]
     public function get_default_cache_tags_value()
     {
         $tags = $this->videoModel->cacheTags();
@@ -42,7 +43,7 @@ class ModelTraitTests extends TestCase
         $this->assertEquals('Video', $tags);
     }
 
-    /** @test */
+    #[Test]
     public function get_overriden_cache_tags_value()
     {
         $tags = $this->userModel->cacheTags();

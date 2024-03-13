@@ -1,9 +1,8 @@
-[![Build](https://github.com/suitmedia/laravel-cacheable/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/suitmedia/laravel-cacheable/actions/workflows/main.yml) 
-[![codecov](https://codecov.io/gh/suitmedia/laravel-cacheable/branch/master/graph/badge.svg)](https://codecov.io/gh/suitmedia/laravel-cacheable) 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/suitmedia/laravel-cacheable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/suitmedia/laravel-cacheable/?branch=master) 
-[![Total Downloads](https://poser.pugx.org/suitmedia/laravel-cacheable/d/total.svg)](https://packagist.org/packages/suitmedia/laravel-cacheable) 
-[![Latest Stable Version](https://poser.pugx.org/suitmedia/laravel-cacheable/v/stable.svg)](https://packagist.org/packages/suitmedia/laravel-cacheable) 
-[![License: MIT](https://poser.pugx.org/laravel/framework/license.svg)](https://opensource.org/licenses/MIT) 
+[![Build](https://github.com/suitmedia/laravel-cacheable/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/suitmedia/laravel-cacheable/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/suitmedia/laravel-cacheable/branch/master/graph/badge.svg)](https://codecov.io/gh/suitmedia/laravel-cacheable)
+[![Total Downloads](https://poser.pugx.org/suitmedia/laravel-cacheable/d/total.svg)](https://packagist.org/packages/suitmedia/laravel-cacheable)
+[![Latest Stable Version](https://poser.pugx.org/suitmedia/laravel-cacheable/v/stable.svg)](https://packagist.org/packages/suitmedia/laravel-cacheable)
+[![License: MIT](https://poser.pugx.org/laravel/framework/license.svg)](https://opensource.org/licenses/MIT)
 
 # Laravel Cacheable
 
@@ -15,24 +14,25 @@ This package will help you to make your repositories cacheable without worrying 
 
 ## Table of contents
 
-* [Compatibility](#compatibility)
-* [Requirements](#requirements)
-* [Setup](#setup)
-* [Configuration](#configuration)
-* [Usage](#usage)
-* [License](#license)
+- [Compatibility](#compatibility)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [License](#license)
 
 ## Compatibility
 
- Laravel version   | Cacheable version
-:------------------|:-----------------
- 5.1.x - 5.4.x     | 1.0.x - 1.3.x
- 5.5.x - 5.8.x     | 1.4.x
- 6.x               | 1.5.x
- 7.x               | 1.6.x
- 8.x               | 1.7.x
- 9.x               | 1.9.x - 1.10.x
- 10.x              | 1.11.x
+| Laravel version | Cacheable version |
+| :-------------- | :---------------- |
+| 5.1.x - 5.4.x   | 1.0.x - 1.3.x     |
+| 5.5.x - 5.8.x   | 1.4.x             |
+| 6.x             | 1.5.x             |
+| 7.x             | 1.6.x             |
+| 8.x             | 1.7.x             |
+| 9.x             | 1.9.x - 1.10.x    |
+| 10.x            | 1.11.x            |
+| 11.x            | 1.12.x            |
 
 ## Requirements
 
@@ -41,6 +41,7 @@ This package require you to use cache storage which supports tags like memcached
 ## Setup
 
 Install the package via Composer :
+
 ```sh
 $ composer require suitmedia/laravel-cacheable
 ```
@@ -49,7 +50,7 @@ $ composer require suitmedia/laravel-cacheable
 
 ### Register The Service Provider
 
-Add the package service provider in your ``config/app.php``
+Add the package service provider in your `config/app.php`
 
 ```php
 'providers' => [
@@ -60,7 +61,7 @@ Add the package service provider in your ``config/app.php``
 
 ### Register The Package Alias
 
-Add the package alias in your ``config/app.php``
+Add the package alias in your `config/app.php`
 
 ```php
 'aliases' => [
@@ -71,13 +72,13 @@ Add the package alias in your ``config/app.php``
 
 ## Configuration
 
-Publish configuration file using ``php artisan`` command
+Publish configuration file using `php artisan` command
 
 ```sh
 $ php artisan vendor:publish --provider="Suitmedia\Cacheable\ServiceProvider"
 ```
 
-The command above would copy a new configuration file to ``/config/cacheable.php``
+The command above would copy a new configuration file to `/config/cacheable.php`
 
 ```php
 return [
@@ -181,7 +182,7 @@ class ArticleRepository implements CacheableRepository
     | Repository's method definition starts from here
     |--------------------------------------------------------------------------
     */
-    
+
     public function all()
     {
         return $this->model->all();
@@ -197,10 +198,10 @@ class ArticleRepository implements CacheableRepository
 #### Retrieve Data From Repository And Cache The Result
 
 With this package, you won't need to create new classes to decorate each of your repositories. You can just decorate them using the `Cacheable` facade, and all results of the repository's methods will be cached automatically.
- 
+
 ```php
 // Lets decorate the repository first
-$repo = \Cacheable::wrap(ArticleRepository::class);
+$repo = Cacheable::wrap(ArticleRepository::class);
 
 // The result of these codes will be cached automatically
 $repo->all();
@@ -215,14 +216,14 @@ But, you can also invalidate the cache manually using the `Cacheable` facade.
 
 ```php
 // Flush everything
-\Cacheable::flush();
+Cacheable::flush();
 
 // Flush the cache using a specific tag
-\Cacheable::flush('Article');
+Cacheable::flush('Article');
 
 // Flush the cache using a specific tag,
 // and only for the cache which belongs to a specific user
-\Cacheable::flush('LikedArticle:User:7');
+Cacheable::flush('LikedArticle:User:7');
 ```
 
 ## License
