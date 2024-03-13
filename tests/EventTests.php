@@ -3,13 +3,14 @@
 namespace Suitmedia\Cacheable\Tests;
 
 use Illuminate\Support\Facades\Event;
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Events\CacheableInvalidated;
 use Suitmedia\Cacheable\Events\CacheableInvalidating;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
 class EventTests extends TestCase
 {
-    /** @test */
+    #[Test]
     public function fire_cacheable_events_as_expected()
     {
         Event::fake([

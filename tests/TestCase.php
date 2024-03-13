@@ -66,7 +66,6 @@ abstract class TestCase extends BaseTest
     {
         return [
             \Illuminate\Cache\CacheServiceProvider::class,
-            \Orchestra\Database\ConsoleServiceProvider::class,
             \Suitmedia\Cacheable\ServiceProvider::class,
         ];
     }
@@ -105,7 +104,7 @@ abstract class TestCase extends BaseTest
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 

@@ -2,6 +2,8 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use Illuminate\Support\Facades\Cache;
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Tests\Supports\Models\Video;
 
 class ObservedModelTests extends TestCase
@@ -18,49 +20,49 @@ class ObservedModelTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->model = new Video;
 
-        \Cache::tags('Video')->put('foo', 'bar', 120);
+        Cache::tags('Video')->put('foo', 'bar', 120);
     }
 
-    /** @test */
+    #[Test]
     public function flush_cache_on_saving()
     {
         $video = Video::find(1);
         $video->title = 'Lorem Ipsum';
         $video->save();
 
-        $data = \Cache::tags('Video')->get('foo');
+        $data = Cache::tags('Video')->get('foo');
 
         $this->assertEquals(null, $data);
     }
 
-    /** @test */
+    #[Test]
     public function flush_cache_on_deleting()
     {
         Video::find(2)->delete();
 
-        $data = \Cache::tags('Video')->get('foo');
+        $data = Cache::tags('Video')->get('foo');
 
         $this->assertEquals(null, $data);
     }
 
-    /** @test */
+    #[Test]
     public function flush_cache_on_restoring_deleted_record()
     {
         Video::find(3)->delete();
-        \Cache::tags('Video')->put('foo', 'barbar', 120);
+        Cache::tags('Video')->put('foo', 'barbar', 120);
 
-        $data = \Cache::tags('Video')->get('foo');
+        $data = Cache::tags('Video')->get('foo');
         $this->assertEquals('barbar', $data);
 
         Video::withTrashed()->find(3)->restore();
 
-        $data = \Cache::tags('Video')->get('foo');
+        $data = Cache::tags('Video')->get('foo');
         $this->assertEquals(null, $data);
     }
 }

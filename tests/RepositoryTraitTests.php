@@ -2,6 +2,8 @@
 
 namespace Suitmedia\Cacheable\Tests;
 
+use Illuminate\Support\Facades\App;
+use PHPUnit\Framework\Attributes\Test;
 use Suitmedia\Cacheable\Tests\Supports\Repositories\UserRepository;
 use Suitmedia\Cacheable\Tests\Supports\Repositories\VideoRepository;
 
@@ -26,15 +28,15 @@ class RepositoryTraitTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->userRepository = \App::make(UserRepository::class);
-        $this->videoRepository = \App::make(VideoRepository::class);
+        $this->userRepository = App::make(UserRepository::class);
+        $this->videoRepository = App::make(VideoRepository::class);
     }
 
-    /** @test */
+    #[Test]
     public function get_default_cache_duration_value_from_configuration()
     {
         $duration = (int) $this->videoRepository->cacheDuration();
@@ -42,7 +44,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals(0, $duration);
     }
 
-    /** @test */
+    #[Test]
     public function get_overriden_cache_duration_value()
     {
         $duration = (int) $this->userRepository->cacheDuration();
@@ -50,7 +52,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals(3600, $duration);
     }
 
-    /** @test */
+    #[Test]
     public function get_default_cache_except_value()
     {
         $actual = $this->videoRepository->cacheExcept();
@@ -70,7 +72,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function get_overriden_cache_except_value()
     {
         $actual = $this->userRepository->cacheExcept();
@@ -84,7 +86,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function get_default_cache_key_value()
     {
         $args = [
@@ -97,7 +99,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function get_overriden_cache_key_value()
     {
         $actual = $this->userRepository->cacheKey('getMyVideo', null);
@@ -106,7 +108,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function get_default_cache_tags_value_from_model_object()
     {
         $actual = $this->userRepository->cacheTags();
@@ -115,7 +117,7 @@ class RepositoryTraitTests extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[Test]
     public function get_overriden_cache_tags_value()
     {
         $actual = $this->videoRepository->cacheTags();

@@ -11,17 +11,17 @@ class UserRepository extends EloquentRepository
 
     public function __construct(User $model)
     {
-        parent::__construct($model);    
+        parent::__construct($model);
     }
 
     public function getAllUsers()
     {
-        return $this->model->get();
+        return $this->model()->get();
     }
 
     public function getUser($UserId)
     {
-        return $this->model->find($UserId);
+        return $this->model()->find($UserId);
     }
 
     public function update($params)
